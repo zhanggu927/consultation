@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.annet.core.mapper.ReferralMapper" >
+  <resultMap id="BaseResultMap" type="com.annet.core.model.Referral" >
+    <id column="referral_id" property="referralId" jdbcType="BIGINT" />
+    <result column="apply_department_name" property="applyDepartmentName" jdbcType="VARCHAR" />
+    <result column="apply_department_no" property="applyDepartmentNo" jdbcType="VARCHAR" />
+    <result column="apply_name" property="applyName" jdbcType="VARCHAR" />
+    <result column="apply_org_code" property="applyOrgCode" jdbcType="VARCHAR" />
+    <result column="apply_org_name" property="applyOrgName" jdbcType="VARCHAR" />
+    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="apply_user_id" property="applyUserId" jdbcType="VARCHAR" />
+    <result column="appointment_time" property="appointmentTime" jdbcType="VARCHAR" />
+    <result column="diagnosis" property="diagnosis" jdbcType="VARCHAR" />
+    <result column="member_count" property="memberCount" jdbcType="VARCHAR" />
+    <result column="patient_age" property="patientAge" jdbcType="VARCHAR" />
+    <result column="patient_bed_no" property="patientBedNo" jdbcType="VARCHAR" />
+    <result column="patient_department_name" property="patientDepartmentName" jdbcType="VARCHAR" />
+    <result column="patient_department_no" property="patientDepartmentNo" jdbcType="VARCHAR" />
+    <result column="patient_gender" property="patientGender" jdbcType="VARCHAR" />
+    <result column="patient_name" property="patientName" jdbcType="VARCHAR" />
+    <result column="patient_org_code" property="patientOrgCode" jdbcType="VARCHAR" />
+    <result column="patient_org_name" property="patientOrgName" jdbcType="VARCHAR" />
+    <result column="patient_sno" property="patientSno" jdbcType="VARCHAR" />
+    <result column="patient_sno_type" property="patientSnoType" jdbcType="VARCHAR" />
+    <result column="referral_department_name" property="referralDepartmentName" jdbcType="VARCHAR" />
+    <result column="referral_department_no" property="referralDepartmentNo" jdbcType="VARCHAR" />
+    <result column="referral_org_code" property="referralOrgCode" jdbcType="VARCHAR" />
+    <result column="referral_org_name" property="referralOrgName" jdbcType="VARCHAR" />
+    <result column="referral_purpose" property="referralPurpose" jdbcType="VARCHAR" />
+    <result column="referral_type" property="referralType" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="session_id" property="sessionId" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="token" property="token" jdbcType="VARCHAR" />
+    <result column="trans_code" property="transCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    referral_id, apply_department_name, apply_department_no, apply_name, apply_org_code, 
+    apply_org_name, apply_time, apply_user_id, appointment_time, diagnosis, member_count, 
+    patient_age, patient_bed_no, patient_department_name, patient_department_no, patient_gender, 
+    patient_name, patient_org_code, patient_org_name, patient_sno, patient_sno_type, 
+    referral_department_name, referral_department_no, referral_org_code, referral_org_name, 
+    referral_purpose, referral_type, remark, session_id, state, title, token, trans_code
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.annet.core.model.ReferralExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_referral
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_referral
+    where referral_id = #{referralId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_referral
+    where referral_id = #{referralId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.annet.core.model.ReferralExample" >
+    delete from tbl_referral
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.annet.core.model.Referral" >
+    insert into tbl_referral (referral_id, apply_department_name, apply_department_no, 
+      apply_name, apply_org_code, apply_org_name, 
+      apply_time, apply_user_id, appointment_time, 
+      diagnosis, member_count, patient_age, 
+      patient_bed_no, patient_department_name, patient_department_no, 
+      patient_gender, patient_name, patient_org_code, 
+      patient_org_name, patient_sno, patient_sno_type, 
+      referral_department_name, referral_department_no, 
+      referral_org_code, referral_org_name, referral_purpose, 
+      referral_type, remark, session_id, 
+      state, title, token, 
+      trans_code)
+    values (#{referralId,jdbcType=BIGINT}, #{applyDepartmentName,jdbcType=VARCHAR}, #{applyDepartmentNo,jdbcType=VARCHAR}, 
+      #{applyName,jdbcType=VARCHAR}, #{applyOrgCode,jdbcType=VARCHAR}, #{applyOrgName,jdbcType=VARCHAR}, 
+      #{applyTime,jdbcType=TIMESTAMP}, #{applyUserId,jdbcType=VARCHAR}, #{appointmentTime,jdbcType=VARCHAR}, 
+      #{diagnosis,jdbcType=VARCHAR}, #{memberCount,jdbcType=VARCHAR}, #{patientAge,jdbcType=VARCHAR}, 
+      #{patientBedNo,jdbcType=VARCHAR}, #{patientDepartmentName,jdbcType=VARCHAR}, #{patientDepartmentNo,jdbcType=VARCHAR}, 
+      #{patientGender,jdbcType=VARCHAR}, #{patientName,jdbcType=VARCHAR}, #{patientOrgCode,jdbcType=VARCHAR}, 
+      #{patientOrgName,jdbcType=VARCHAR}, #{patientSno,jdbcType=VARCHAR}, #{patientSnoType,jdbcType=VARCHAR}, 
+      #{referralDepartmentName,jdbcType=VARCHAR}, #{referralDepartmentNo,jdbcType=VARCHAR}, 
+      #{referralOrgCode,jdbcType=VARCHAR}, #{referralOrgName,jdbcType=VARCHAR}, #{referralPurpose,jdbcType=VARCHAR}, 
+      #{referralType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, 
+      #{transCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.annet.core.model.Referral" >
+    insert into tbl_referral
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="referralId != null" >
+        referral_id,
+      </if>
+      <if test="applyDepartmentName != null" >
+        apply_department_name,
+      </if>
+      <if test="applyDepartmentNo != null" >
+        apply_department_no,
+      </if>
+      <if test="applyName != null" >
+        apply_name,
+      </if>
+      <if test="applyOrgCode != null" >
+        apply_org_code,
+      </if>
+      <if test="applyOrgName != null" >
+        apply_org_name,
+      </if>
+      <if test="applyTime != null" >
+        apply_time,
+      </if>
+      <if test="applyUserId != null" >
+        apply_user_id,
+      </if>
+      <if test="appointmentTime != null" >
+        appointment_time,
+      </if>
+      <if test="diagnosis != null" >
+        diagnosis,
+      </if>
+      <if test="memberCount != null" >
+        member_count,
+      </if>
+      <if test="patientAge != null" >
+        patient_age,
+      </if>
+      <if test="patientBedNo != null" >
+        patient_bed_no,
+      </if>
+      <if test="patientDepartmentName != null" >
+        patient_department_name,
+      </if>
+      <if test="patientDepartmentNo != null" >
+        patient_department_no,
+      </if>
+      <if test="patientGender != null" >
+        patient_gender,
+      </if>
+      <if test="patientName != null" >
+        patient_name,
+      </if>
+      <if test="patientOrgCode != null" >
+        patient_org_code,
+      </if>
+      <if test="patientOrgName != null" >
+        patient_org_name,
+      </if>
+      <if test="patientSno != null" >
+        patient_sno,
+      </if>
+      <if test="patientSnoType != null" >
+        patient_sno_type,
+      </if>
+      <if test="referralDepartmentName != null" >
+        referral_department_name,
+      </if>
+      <if test="referralDepartmentNo != null" >
+        referral_department_no,
+      </if>
+      <if test="referralOrgCode != null" >
+        referral_org_code,
+      </if>
+      <if test="referralOrgName != null" >
+        referral_org_name,
+      </if>
+      <if test="referralPurpose != null" >
+        referral_purpose,
+      </if>
+      <if test="referralType != null" >
+        referral_type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="sessionId != null" >
+        session_id,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="token != null" >
+        token,
+      </if>
+      <if test="transCode != null" >
+        trans_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="referralId != null" >
+        #{referralId,jdbcType=BIGINT},
+      </if>
+      <if test="applyDepartmentName != null" >
+        #{applyDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDepartmentNo != null" >
+        #{applyDepartmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="applyName != null" >
+        #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyOrgCode != null" >
+        #{applyOrgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="applyOrgName != null" >
+        #{applyOrgName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyUserId != null" >
+        #{applyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="appointmentTime != null" >
+        #{appointmentTime,jdbcType=VARCHAR},
+      </if>
+      <if test="diagnosis != null" >
+        #{diagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="memberCount != null" >
+        #{memberCount,jdbcType=VARCHAR},
+      </if>
+      <if test="patientAge != null" >
+        #{patientAge,jdbcType=VARCHAR},
+      </if>
+      <if test="patientBedNo != null" >
+        #{patientBedNo,jdbcType=VARCHAR},
+      </if>
+      <if test="patientDepartmentName != null" >
+        #{patientDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="patientDepartmentNo != null" >
+        #{patientDepartmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="patientGender != null" >
+        #{patientGender,jdbcType=VARCHAR},
+      </if>
+      <if test="patientName != null" >
+        #{patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="patientOrgCode != null" >
+        #{patientOrgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="patientOrgName != null" >
+        #{patientOrgName,jdbcType=VARCHAR},
+      </if>
+      <if test="patientSno != null" >
+        #{patientSno,jdbcType=VARCHAR},
+      </if>
+      <if test="patientSnoType != null" >
+        #{patientSnoType,jdbcType=VARCHAR},
+      </if>
+      <if test="referralDepartmentName != null" >
+        #{referralDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="referralDepartmentNo != null" >
+        #{referralDepartmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="referralOrgCode != null" >
+        #{referralOrgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="referralOrgName != null" >
+        #{referralOrgName,jdbcType=VARCHAR},
+      </if>
+      <if test="referralPurpose != null" >
+        #{referralPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="referralType != null" >
+        #{referralType,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="transCode != null" >
+        #{transCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.annet.core.model.ReferralExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_referral
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_referral
+    <set >
+      <if test="record.referralId != null" >
+        referral_id = #{record.referralId,jdbcType=BIGINT},
+      </if>
+      <if test="record.applyDepartmentName != null" >
+        apply_department_name = #{record.applyDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyDepartmentNo != null" >
+        apply_department_no = #{record.applyDepartmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyName != null" >
+        apply_name = #{record.applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyOrgCode != null" >
+        apply_org_code = #{record.applyOrgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyOrgName != null" >
+        apply_org_name = #{record.applyOrgName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyTime != null" >
+        apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.applyUserId != null" >
+        apply_user_id = #{record.applyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appointmentTime != null" >
+        appointment_time = #{record.appointmentTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diagnosis != null" >
+        diagnosis = #{record.diagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberCount != null" >
+        member_count = #{record.memberCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patientAge != null" >
+        patient_age = #{record.patientAge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patientBedNo != null" >
+        patient_bed_no = #{record.patientBedNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patientDepartmentName != null" >
+        patient_department_name = #{record.patientDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patientDepartmentNo != null" >
+        patient_department_no = #{record.patientDepartmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patientGender != null" >
+        patient_gender = #{record.patientGender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patientName != null" >
+        patient_name = #{record.patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patientOrgCode != null" >
+        patient_org_code = #{record.patientOrgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patientOrgName != null" >
+        patient_org_name = #{record.patientOrgName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patientSno != null" >
+        patient_sno = #{record.patientSno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patientSnoType != null" >
+        patient_sno_type = #{record.patientSnoType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referralDepartmentName != null" >
+        referral_department_name = #{record.referralDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referralDepartmentNo != null" >
+        referral_department_no = #{record.referralDepartmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referralOrgCode != null" >
+        referral_org_code = #{record.referralOrgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referralOrgName != null" >
+        referral_org_name = #{record.referralOrgName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referralPurpose != null" >
+        referral_purpose = #{record.referralPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referralType != null" >
+        referral_type = #{record.referralType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sessionId != null" >
+        session_id = #{record.sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.token != null" >
+        token = #{record.token,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transCode != null" >
+        trans_code = #{record.transCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_referral
+    set referral_id = #{record.referralId,jdbcType=BIGINT},
+      apply_department_name = #{record.applyDepartmentName,jdbcType=VARCHAR},
+      apply_department_no = #{record.applyDepartmentNo,jdbcType=VARCHAR},
+      apply_name = #{record.applyName,jdbcType=VARCHAR},
+      apply_org_code = #{record.applyOrgCode,jdbcType=VARCHAR},
+      apply_org_name = #{record.applyOrgName,jdbcType=VARCHAR},
+      apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
+      apply_user_id = #{record.applyUserId,jdbcType=VARCHAR},
+      appointment_time = #{record.appointmentTime,jdbcType=VARCHAR},
+      diagnosis = #{record.diagnosis,jdbcType=VARCHAR},
+      member_count = #{record.memberCount,jdbcType=VARCHAR},
+      patient_age = #{record.patientAge,jdbcType=VARCHAR},
+      patient_bed_no = #{record.patientBedNo,jdbcType=VARCHAR},
+      patient_department_name = #{record.patientDepartmentName,jdbcType=VARCHAR},
+      patient_department_no = #{record.patientDepartmentNo,jdbcType=VARCHAR},
+      patient_gender = #{record.patientGender,jdbcType=VARCHAR},
+      patient_name = #{record.patientName,jdbcType=VARCHAR},
+      patient_org_code = #{record.patientOrgCode,jdbcType=VARCHAR},
+      patient_org_name = #{record.patientOrgName,jdbcType=VARCHAR},
+      patient_sno = #{record.patientSno,jdbcType=VARCHAR},
+      patient_sno_type = #{record.patientSnoType,jdbcType=VARCHAR},
+      referral_department_name = #{record.referralDepartmentName,jdbcType=VARCHAR},
+      referral_department_no = #{record.referralDepartmentNo,jdbcType=VARCHAR},
+      referral_org_code = #{record.referralOrgCode,jdbcType=VARCHAR},
+      referral_org_name = #{record.referralOrgName,jdbcType=VARCHAR},
+      referral_purpose = #{record.referralPurpose,jdbcType=VARCHAR},
+      referral_type = #{record.referralType,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      session_id = #{record.sessionId,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      token = #{record.token,jdbcType=VARCHAR},
+      trans_code = #{record.transCode,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.annet.core.model.Referral" >
+    update tbl_referral
+    <set >
+      <if test="applyDepartmentName != null" >
+        apply_department_name = #{applyDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDepartmentNo != null" >
+        apply_department_no = #{applyDepartmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="applyName != null" >
+        apply_name = #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyOrgCode != null" >
+        apply_org_code = #{applyOrgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="applyOrgName != null" >
+        apply_org_name = #{applyOrgName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyUserId != null" >
+        apply_user_id = #{applyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="appointmentTime != null" >
+        appointment_time = #{appointmentTime,jdbcType=VARCHAR},
+      </if>
+      <if test="diagnosis != null" >
+        diagnosis = #{diagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="memberCount != null" >
+        member_count = #{memberCount,jdbcType=VARCHAR},
+      </if>
+      <if test="patientAge != null" >
+        patient_age = #{patientAge,jdbcType=VARCHAR},
+      </if>
+      <if test="patientBedNo != null" >
+        patient_bed_no = #{patientBedNo,jdbcType=VARCHAR},
+      </if>
+      <if test="patientDepartmentName != null" >
+        patient_department_name = #{patientDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="patientDepartmentNo != null" >
+        patient_department_no = #{patientDepartmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="patientGender != null" >
+        patient_gender = #{patientGender,jdbcType=VARCHAR},
+      </if>
+      <if test="patientName != null" >
+        patient_name = #{patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="patientOrgCode != null" >
+        patient_org_code = #{patientOrgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="patientOrgName != null" >
+        patient_org_name = #{patientOrgName,jdbcType=VARCHAR},
+      </if>
+      <if test="patientSno != null" >
+        patient_sno = #{patientSno,jdbcType=VARCHAR},
+      </if>
+      <if test="patientSnoType != null" >
+        patient_sno_type = #{patientSnoType,jdbcType=VARCHAR},
+      </if>
+      <if test="referralDepartmentName != null" >
+        referral_department_name = #{referralDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="referralDepartmentNo != null" >
+        referral_department_no = #{referralDepartmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="referralOrgCode != null" >
+        referral_org_code = #{referralOrgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="referralOrgName != null" >
+        referral_org_name = #{referralOrgName,jdbcType=VARCHAR},
+      </if>
+      <if test="referralPurpose != null" >
+        referral_purpose = #{referralPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="referralType != null" >
+        referral_type = #{referralType,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        session_id = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="transCode != null" >
+        trans_code = #{transCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where referral_id = #{referralId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.annet.core.model.Referral" >
+    update tbl_referral
+    set apply_department_name = #{applyDepartmentName,jdbcType=VARCHAR},
+      apply_department_no = #{applyDepartmentNo,jdbcType=VARCHAR},
+      apply_name = #{applyName,jdbcType=VARCHAR},
+      apply_org_code = #{applyOrgCode,jdbcType=VARCHAR},
+      apply_org_name = #{applyOrgName,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      apply_user_id = #{applyUserId,jdbcType=VARCHAR},
+      appointment_time = #{appointmentTime,jdbcType=VARCHAR},
+      diagnosis = #{diagnosis,jdbcType=VARCHAR},
+      member_count = #{memberCount,jdbcType=VARCHAR},
+      patient_age = #{patientAge,jdbcType=VARCHAR},
+      patient_bed_no = #{patientBedNo,jdbcType=VARCHAR},
+      patient_department_name = #{patientDepartmentName,jdbcType=VARCHAR},
+      patient_department_no = #{patientDepartmentNo,jdbcType=VARCHAR},
+      patient_gender = #{patientGender,jdbcType=VARCHAR},
+      patient_name = #{patientName,jdbcType=VARCHAR},
+      patient_org_code = #{patientOrgCode,jdbcType=VARCHAR},
+      patient_org_name = #{patientOrgName,jdbcType=VARCHAR},
+      patient_sno = #{patientSno,jdbcType=VARCHAR},
+      patient_sno_type = #{patientSnoType,jdbcType=VARCHAR},
+      referral_department_name = #{referralDepartmentName,jdbcType=VARCHAR},
+      referral_department_no = #{referralDepartmentNo,jdbcType=VARCHAR},
+      referral_org_code = #{referralOrgCode,jdbcType=VARCHAR},
+      referral_org_name = #{referralOrgName,jdbcType=VARCHAR},
+      referral_purpose = #{referralPurpose,jdbcType=VARCHAR},
+      referral_type = #{referralType,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      session_id = #{sessionId,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      trans_code = #{transCode,jdbcType=VARCHAR}
+    where referral_id = #{referralId,jdbcType=BIGINT}
+  </update>
+</mapper>

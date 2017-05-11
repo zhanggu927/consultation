@@ -1,0 +1,16 @@
+package com.annet.controller;
+
+import org.springframework.stereotype.Controller;
+
+/**
+ * 登录相关的Controller
+ * @author Zhang
+ *
+ */
+@Controller
+public class LoginController {
+	
+	
+	
+	
+}

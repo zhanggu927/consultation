@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--suppress ALL -->
+<mapper namespace="com.annet.mapper.ConsultationCenterManagerMapper" >
+  <resultMap id="BaseResultMap" type="com.annet.model.ConsultationCenterManager" >
+    <id column="consultation_center_manager_id" property="consultationCenterManagerId" jdbcType="BIGINT" />
+    <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    consultation_center_manager_id, org_code, password, user_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.annet.model.ConsultationCenterManagerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_consultation_center_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_consultation_center_manager
+    where consultation_center_manager_id = #{consultationCenterManagerId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_consultation_center_manager
+    where consultation_center_manager_id = #{consultationCenterManagerId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.annet.model.ConsultationCenterManagerExample" >
+    delete from tbl_consultation_center_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.annet.model.ConsultationCenterManager" >
+    insert into tbl_consultation_center_manager (consultation_center_manager_id, org_code, 
+      password, user_id)
+    values (#{consultationCenterManagerId,jdbcType=BIGINT}, #{orgCode,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.annet.model.ConsultationCenterManager" >
+    insert into tbl_consultation_center_manager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="consultationCenterManagerId != null" >
+        consultation_center_manager_id,
+      </if>
+      <if test="orgCode != null" >
+        org_code,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="consultationCenterManagerId != null" >
+        #{consultationCenterManagerId,jdbcType=BIGINT},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.annet.model.ConsultationCenterManagerExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_consultation_center_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_consultation_center_manager
+    <set >
+      <if test="record.consultationCenterManagerId != null" >
+        consultation_center_manager_id = #{record.consultationCenterManagerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orgCode != null" >
+        org_code = #{record.orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_consultation_center_manager
+    set consultation_center_manager_id = #{record.consultationCenterManagerId,jdbcType=BIGINT},
+      org_code = #{record.orgCode,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.annet.model.ConsultationCenterManager" >
+    update tbl_consultation_center_manager
+    <set >
+      <if test="orgCode != null" >
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where consultation_center_manager_id = #{consultationCenterManagerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.annet.model.ConsultationCenterManager" >
+    update tbl_consultation_center_manager
+    set org_code = #{orgCode,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR}
+    where consultation_center_manager_id = #{consultationCenterManagerId,jdbcType=BIGINT}
+  </update>
+<select id="selectByUserIdAndPassWord" resultType="java.util.List">
+	select org_code
+		from tbl_consultation_center_manager
+		where user_id = #{userId} and password = #{password}
+</select>
+
+
+
+</mapper>

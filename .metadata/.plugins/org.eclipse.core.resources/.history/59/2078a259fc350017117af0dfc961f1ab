@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.annet.mapper.OrganizationConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.annet.model.OrganizationConfig" >
+    <id column="org_config_id" property="orgConfigId" jdbcType="BIGINT" />
+    <result column="account_data_timeout" property="accountDataTimeout" jdbcType="VARCHAR" />
+    <result column="cds_ip" property="cdsIp" jdbcType="VARCHAR" />
+    <result column="cds_port" property="cdsPort" jdbcType="VARCHAR" />
+    <result column="cds_version" property="cdsVersion" jdbcType="VARCHAR" />
+    <result column="cds_web_socket_port" property="cdsWebSocketPort" jdbcType="VARCHAR" />
+    <result column="cloud_image_config" property="cloudImageConfig" jdbcType="VARCHAR" />
+    <result column="disable_data_account_permissions" property="disableDataAccountPermissions" jdbcType="VARCHAR" />
+    <result column="disclaimer" property="disclaimer" jdbcType="VARCHAR" />
+    <result column="disclaimer_content" property="disclaimerContent" jdbcType="VARCHAR" />
+    <result column="is_third_party_validation" property="isThirdPartyValidation" jdbcType="VARCHAR" />
+    <result column="is_vpn" property="isVpn" jdbcType="VARCHAR" />
+    <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+    <result column="vpn_ip" property="vpnIp" jdbcType="VARCHAR" />
+    <result column="vpn_password" property="vpnPassword" jdbcType="VARCHAR" />
+    <result column="vpn_port" property="vpnPort" jdbcType="VARCHAR" />
+    <result column="vpn_username" property="vpnUsername" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    org_config_id, account_data_timeout, cds_ip, cds_port, cds_version, cds_web_socket_port, 
+    cloud_image_config, disable_data_account_permissions, disclaimer, disclaimer_content, 
+    is_third_party_validation, is_vpn, org_code, vpn_ip, vpn_password, vpn_port, vpn_username
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_organization_config
+    where org_config_id = #{orgConfigId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_organization_config
+    where org_config_id = #{orgConfigId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.annet.model.OrganizationConfig" >
+    insert into tbl_organization_config (org_config_id, account_data_timeout, cds_ip, 
+      cds_port, cds_version, cds_web_socket_port, 
+      cloud_image_config, disable_data_account_permissions, 
+      disclaimer, disclaimer_content, is_third_party_validation, 
+      is_vpn, org_code, vpn_ip, 
+      vpn_password, vpn_port, vpn_username
+      )
+    values (#{orgConfigId,jdbcType=BIGINT}, #{accountDataTimeout,jdbcType=VARCHAR}, #{cdsIp,jdbcType=VARCHAR}, 
+      #{cdsPort,jdbcType=VARCHAR}, #{cdsVersion,jdbcType=VARCHAR}, #{cdsWebSocketPort,jdbcType=VARCHAR}, 
+      #{cloudImageConfig,jdbcType=VARCHAR}, #{disableDataAccountPermissions,jdbcType=VARCHAR}, 
+      #{disclaimer,jdbcType=VARCHAR}, #{disclaimerContent,jdbcType=VARCHAR}, #{isThirdPartyValidation,jdbcType=VARCHAR}, 
+      #{isVpn,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, #{vpnIp,jdbcType=VARCHAR}, 
+      #{vpnPassword,jdbcType=VARCHAR}, #{vpnPort,jdbcType=VARCHAR}, #{vpnUsername,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.annet.model.OrganizationConfig" >
+    insert into tbl_organization_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orgConfigId != null" >
+        org_config_id,
+      </if>
+      <if test="accountDataTimeout != null" >
+        account_data_timeout,
+      </if>
+      <if test="cdsIp != null" >
+        cds_ip,
+      </if>
+      <if test="cdsPort != null" >
+        cds_port,
+      </if>
+      <if test="cdsVersion != null" >
+        cds_version,
+      </if>
+      <if test="cdsWebSocketPort != null" >
+        cds_web_socket_port,
+      </if>
+      <if test="cloudImageConfig != null" >
+        cloud_image_config,
+      </if>
+      <if test="disableDataAccountPermissions != null" >
+        disable_data_account_permissions,
+      </if>
+      <if test="disclaimer != null" >
+        disclaimer,
+      </if>
+      <if test="disclaimerContent != null" >
+        disclaimer_content,
+      </if>
+      <if test="isThirdPartyValidation != null" >
+        is_third_party_validation,
+      </if>
+      <if test="isVpn != null" >
+        is_vpn,
+      </if>
+      <if test="orgCode != null" >
+        org_code,
+      </if>
+      <if test="vpnIp != null" >
+        vpn_ip,
+      </if>
+      <if test="vpnPassword != null" >
+        vpn_password,
+      </if>
+      <if test="vpnPort != null" >
+        vpn_port,
+      </if>
+      <if test="vpnUsername != null" >
+        vpn_username,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orgConfigId != null" >
+        #{orgConfigId,jdbcType=BIGINT},
+      </if>
+      <if test="accountDataTimeout != null" >
+        #{accountDataTimeout,jdbcType=VARCHAR},
+      </if>
+      <if test="cdsIp != null" >
+        #{cdsIp,jdbcType=VARCHAR},
+      </if>
+      <if test="cdsPort != null" >
+        #{cdsPort,jdbcType=VARCHAR},
+      </if>
+      <if test="cdsVersion != null" >
+        #{cdsVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="cdsWebSocketPort != null" >
+        #{cdsWebSocketPort,jdbcType=VARCHAR},
+      </if>
+      <if test="cloudImageConfig != null" >
+        #{cloudImageConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="disableDataAccountPermissions != null" >
+        #{disableDataAccountPermissions,jdbcType=VARCHAR},
+      </if>
+      <if test="disclaimer != null" >
+        #{disclaimer,jdbcType=VARCHAR},
+      </if>
+      <if test="disclaimerContent != null" >
+        #{disclaimerContent,jdbcType=VARCHAR},
+      </if>
+      <if test="isThirdPartyValidation != null" >
+        #{isThirdPartyValidation,jdbcType=VARCHAR},
+      </if>
+      <if test="isVpn != null" >
+        #{isVpn,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vpnIp != null" >
+        #{vpnIp,jdbcType=VARCHAR},
+      </if>
+      <if test="vpnPassword != null" >
+        #{vpnPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="vpnPort != null" >
+        #{vpnPort,jdbcType=VARCHAR},
+      </if>
+      <if test="vpnUsername != null" >
+        #{vpnUsername,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.annet.model.OrganizationConfig" >
+    update tbl_organization_config
+    <set >
+      <if test="accountDataTimeout != null" >
+        account_data_timeout = #{accountDataTimeout,jdbcType=VARCHAR},
+      </if>
+      <if test="cdsIp != null" >
+        cds_ip = #{cdsIp,jdbcType=VARCHAR},
+      </if>
+      <if test="cdsPort != null" >
+        cds_port = #{cdsPort,jdbcType=VARCHAR},
+      </if>
+      <if test="cdsVersion != null" >
+        cds_version = #{cdsVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="cdsWebSocketPort != null" >
+        cds_web_socket_port = #{cdsWebSocketPort,jdbcType=VARCHAR},
+      </if>
+      <if test="cloudImageConfig != null" >
+        cloud_image_config = #{cloudImageConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="disableDataAccountPermissions != null" >
+        disable_data_account_permissions = #{disableDataAccountPermissions,jdbcType=VARCHAR},
+      </if>
+      <if test="disclaimer != null" >
+        disclaimer = #{disclaimer,jdbcType=VARCHAR},
+      </if>
+      <if test="disclaimerContent != null" >
+        disclaimer_content = #{disclaimerContent,jdbcType=VARCHAR},
+      </if>
+      <if test="isThirdPartyValidation != null" >
+        is_third_party_validation = #{isThirdPartyValidation,jdbcType=VARCHAR},
+      </if>
+      <if test="isVpn != null" >
+        is_vpn = #{isVpn,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null" >
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vpnIp != null" >
+        vpn_ip = #{vpnIp,jdbcType=VARCHAR},
+      </if>
+      <if test="vpnPassword != null" >
+        vpn_password = #{vpnPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="vpnPort != null" >
+        vpn_port = #{vpnPort,jdbcType=VARCHAR},
+      </if>
+      <if test="vpnUsername != null" >
+        vpn_username = #{vpnUsername,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where org_config_id = #{orgConfigId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.annet.model.OrganizationConfig" >
+    update tbl_organization_config
+    set account_data_timeout = #{accountDataTimeout,jdbcType=VARCHAR},
+      cds_ip = #{cdsIp,jdbcType=VARCHAR},
+      cds_port = #{cdsPort,jdbcType=VARCHAR},
+      cds_version = #{cdsVersion,jdbcType=VARCHAR},
+      cds_web_socket_port = #{cdsWebSocketPort,jdbcType=VARCHAR},
+      cloud_image_config = #{cloudImageConfig,jdbcType=VARCHAR},
+      disable_data_account_permissions = #{disableDataAccountPermissions,jdbcType=VARCHAR},
+      disclaimer = #{disclaimer,jdbcType=VARCHAR},
+      disclaimer_content = #{disclaimerContent,jdbcType=VARCHAR},
+      is_third_party_validation = #{isThirdPartyValidation,jdbcType=VARCHAR},
+      is_vpn = #{isVpn,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      vpn_ip = #{vpnIp,jdbcType=VARCHAR},
+      vpn_password = #{vpnPassword,jdbcType=VARCHAR},
+      vpn_port = #{vpnPort,jdbcType=VARCHAR},
+      vpn_username = #{vpnUsername,jdbcType=VARCHAR}
+    where org_config_id = #{orgConfigId,jdbcType=BIGINT}
+  </update>
+</mapper>

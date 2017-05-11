@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.annet.mapper.ConsultationAttachmentMapper" >
+  <resultMap id="BaseResultMap" type="com.annet.model.ConsultationAttachment" >
+    <id column="consultation_attachment_id" property="consultationAttachmentId" jdbcType="BIGINT" />
+    <result column="attachment_attribute" property="attachmentAttribute" jdbcType="VARCHAR" />
+    <result column="attachment_owner" property="attachmentOwner" jdbcType="VARCHAR" />
+    <result column="attachment_type" property="attachmentType" jdbcType="VARCHAR" />
+    <result column="attachment_url" property="attachmentUrl" jdbcType="VARCHAR" />
+    <result column="consultation_id" property="consultationId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    consultation_attachment_id, attachment_attribute, attachment_owner, attachment_type, 
+    attachment_url, consultation_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_consultation_attachment
+    where consultation_attachment_id = #{consultationAttachmentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_consultation_attachment
+    where consultation_attachment_id = #{consultationAttachmentId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.annet.model.ConsultationAttachment" >
+    insert into tbl_consultation_attachment (consultation_attachment_id, attachment_attribute, 
+      attachment_owner, attachment_type, attachment_url, 
+      consultation_id)
+    values (#{consultationAttachmentId,jdbcType=BIGINT}, #{attachmentAttribute,jdbcType=VARCHAR}, 
+      #{attachmentOwner,jdbcType=VARCHAR}, #{attachmentType,jdbcType=VARCHAR}, #{attachmentUrl,jdbcType=VARCHAR}, 
+      #{consultationId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.annet.model.ConsultationAttachment" >
+    insert into tbl_consultation_attachment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="consultationAttachmentId != null" >
+        consultation_attachment_id,
+      </if>
+      <if test="attachmentAttribute != null" >
+        attachment_attribute,
+      </if>
+      <if test="attachmentOwner != null" >
+        attachment_owner,
+      </if>
+      <if test="attachmentType != null" >
+        attachment_type,
+      </if>
+      <if test="attachmentUrl != null" >
+        attachment_url,
+      </if>
+      <if test="consultationId != null" >
+        consultation_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="consultationAttachmentId != null" >
+        #{consultationAttachmentId,jdbcType=BIGINT},
+      </if>
+      <if test="attachmentAttribute != null" >
+        #{attachmentAttribute,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentOwner != null" >
+        #{attachmentOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentType != null" >
+        #{attachmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentUrl != null" >
+        #{attachmentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="consultationId != null" >
+        #{consultationId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.annet.model.ConsultationAttachment" >
+    update tbl_consultation_attachment
+    <set >
+      <if test="attachmentAttribute != null" >
+        attachment_attribute = #{attachmentAttribute,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentOwner != null" >
+        attachment_owner = #{attachmentOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentType != null" >
+        attachment_type = #{attachmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentUrl != null" >
+        attachment_url = #{attachmentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="consultationId != null" >
+        consultation_id = #{consultationId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where consultation_attachment_id = #{consultationAttachmentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.annet.model.ConsultationAttachment" >
+    update tbl_consultation_attachment
+    set attachment_attribute = #{attachmentAttribute,jdbcType=VARCHAR},
+      attachment_owner = #{attachmentOwner,jdbcType=VARCHAR},
+      attachment_type = #{attachmentType,jdbcType=VARCHAR},
+      attachment_url = #{attachmentUrl,jdbcType=VARCHAR},
+      consultation_id = #{consultationId,jdbcType=VARCHAR}
+    where consultation_attachment_id = #{consultationAttachmentId,jdbcType=BIGINT}
+  </update>
+</mapper>

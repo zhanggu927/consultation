@@ -1,0 +1,1066 @@
+<!doctype html>
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>会诊详情</title>
+<link th:href="@{../css/base.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{../css/main.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{../css/page.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{../css/mCustomScrollbar/jquery.mCustomScrollbar.css}" type="text/css" rel="stylesheet"/>
+</head>
+
+<body>
+<!--rms  远程医疗系统  Remote medical syste -->
+<div class="rms_wrapper">
+    	<div class="top">
+        	<div class="logo f18">安泰远程医疗系统</div>
+            <div class="user">
+            	<div class="f14">
+                	<div class="ico"></div>
+                    <span id="orgName">Alexander Pierce</span>
+                </div>
+                <a  href="#" class="arrow" id="setting-icon"><i></i></a>
+                <div class="setting-box" id="setting">
+                    <ul class="">
+                        <li><a href="#">设置</a></li>
+                        <li class="li-line"></li>
+                        <li><a href="#">退出</a></li>
+                    </ul>
+                    <div class="sanjiao"></div>
+                </div>
+            </div>
+            <!-- 顶部样式结束 -->
+        </div>
+        
+        <div class="main">
+        	<div class="left">
+            	<div class="h_logo"></div>
+                <div class="nav">
+                	<ul>
+                    	<li class=" selected"><a class="consultation" th:onclick="'consultationCenter();'">会诊中心</a></li>
+                        <li><a class="refeer" href="referral.html">双向转诊</a></li>
+                        <li><a href="#" class="chart">统计分析</a></li>
+                        <li><a href="#" class="sys">系统管理</a></li>
+                    </ul>
+                    
+                </div>
+            </div>
+            <!-- 左侧导航样式结束 -->
+            
+            <div class="right">
+            	<div class="box">
+                	<div class="tab">
+                    	<a class="back" href="javascript:history.go(-1)">返回</a>
+                        <div class="label">
+                        	<ul>
+                            	<li><a class="selected"  href="#" id="tab1">会诊详情</a></li>
+                                <li><a href="#" id="tab2">病历信息</a></li>
+                                <li><a href="#" id="tab3">交互信息</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- end of tab -->
+                    <span th:text="${result.con.state}" style="display: none;" id="state"></span>
+                    <span th:text="${result.con.orgCode}" style="display: none;" id="applyOrgCode"></span>
+                    <span th:text="${result.con.consultationId}" style="display: none;" id="consultationId"></span>
+                    <div class="msg">
+                    	<div class="details table_scroll_bar" id="tab_1">
+                            <div class="module progress">
+                                <ul>
+                                    <li class="selected">
+                                        <div class="state">前质控完成</div>
+                                        <div class="line">
+                                            <div class="color_line"></div>
+                                            <i></i>
+                                        </div>
+                                        <div class="user">
+                                           <!-- <div class="date f16"> 2015-12-20   13:30</div>-->
+                                            <div class="name f16" th:text="${result.con.orgName}">深圳市儿童医院</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="state">分配</div>
+                                        <div class="line">
+                                            <div class="color_line"></div>
+                                            <i></i>
+                                        </div>
+                                        <div class="user">
+                                           <!-- <div class="date f16"> 2015-12-20   13:30</div>-->
+                                            <div class="name f16" id="admin2">管理员</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="state">待发起</div>
+                                        <div class="line">
+                                            <div class="color_line"></div>
+                                            <i></i>
+                                        </div>
+                                        <div class="user">
+                                            <!--<div class="date f16"> 2015-12-20   13:30</div>-->
+                                            <div class="name f16" id="admin3">管理员</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="state">进行中</div>
+                                        <div class="line">
+                                            <div class="color_line"></div>
+                                            <i></i>
+                                        </div>
+                                        <div class="user">
+                                            <!--<div class="date f16"> 2015-12-20   13:30</div>-->
+                                            <div class="name f16" id="admin4"></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="state">后质控完成</div>
+                                        <div class="line">
+                                            <div class="color_line" ></div>
+                                            <i></i>
+                                        </div>
+                                        <div class="user">
+                                           <!-- <div class="date f16"> 2015-12-20   13:30</div>-->
+                                            <div class="name f16" id="admin5">管理员</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="state">结束</div>
+                                        <div class="line">
+                                            <div class="color_line"></div>
+                                            <i></i>
+                                        </div>
+                                        <div class="user">
+                                            <!-- <div class="date f16"> 2015-12-20   13:30</div>-->
+                                            <div class="name f16" id="admin6">管理员</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="module patient">
+                                <div class="title">患者信息</div>
+                                <ul>
+                                    <li>
+                                        <p>患者姓名：
+                                            <span th:text="${result.con.patientName}">张*明</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>性别：
+                                            <span th:if="${result.con.patientGender=='1'}">男</span>
+                                            <span th:if="${result.con.patientGender=='2'}">女</span>
+                                            <span th:if="${result.con.patientGender=='0'}">未知</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>年龄：
+                                            <span th:text="${result.con.patientAge}">53</span>
+                                        </p>
+                                    </li>
+                                 </ul>
+                                 <ul>
+                                    <li>
+                                        <p>患者类型：
+                                            <span th:if="${result.con.patientSnoType=='1'}">门诊</span>
+                                            <span th:if="${result.con.patientSnoType=='2'}">住院</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>住院/门诊号：
+                                            <span th:text="${result.con.patientSno}">YB03477612</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>科室：
+                                            <span th:text="${result.con.patientDepartment}">妇二科</span>
+                                        </p>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                            <div class="module apply">
+                                <div class="title">会诊信息</div>
+                                <ul>
+                                    <li>
+                                        <p>会诊目的：
+                                            <span th:text="${result.con.purpose}">  危重疑难病 , 请上级医院会诊</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>会诊方式：
+                                            <span th:if="${result.con.consultationType=='1'}">  咨询会诊</span>
+                                            <span th:if="${result.con.consultationType=='2'}">  预约视频会诊</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <ul>
+                                	<li>
+                                        <p>申请信息：
+                                            <span th:text="${result.con.orgName}">陕西省府谷医院</span>/
+                                            <span th:text="${result.con.departmentName}">外科</span>/
+                                            <span th:text="${result.con.name}">张林英</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>联系电话：
+                                            <span th:text="${result.con.phone}">  0755-28526133</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li>
+                                        <p>指定专家：
+                                            <span> 深圳市儿童医院/ 儿科 / 张超阳</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>预约时间：
+                                            <span th:text="${result.con.appointmentTime}">
+                                                2016-12-08 14:30
+                                            </span>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="module diagnosis">
+                                <div class="title">临床信息</div>
+                                <ul>
+                                    <li>
+                                        <p>初步诊断：
+                                            <span th:text="${result.con.diagnosis}">该患于入院前1周于劳累后出现胸骨后压榨样疼痛，疼痛范围手掌大小，伴心前区 及左肩部放射性疼痛和咽部紧缩感，伴出汗、恶心，无呼吸困难发热咳嗽、咳痰、头胀、头痛头晕、晕厥等症。疼痛持续约5分钟，休息后缓解
+
+                                            </span>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="module consultation_report">
+                                <div class="title">会诊报告</div>
+                                <ul>
+                                    <li>
+                                        <p>会诊报告：
+                                            <span th:text="${result.con.purpose}">该患于入院前1周于劳累后出现胸骨后压榨样疼痛，疼痛范围手掌大小，伴心前区 及左肩部放射性疼痛和咽部紧缩感，伴出汗、恶心，无呼
+                                           吸困难发热咳嗽、咳痰、头胀、头痛头晕、晕厥等症。疼痛持续约5分钟，休息后缓解.
+                                            </span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <ul class="mt20" th:each="member :${result.members}">
+                                    <li>
+                                        <p>会诊专家：
+                                            <span th:text="${member.name}">张超阳</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>联系电话：
+                                            <span th:text="${member.phone}">13590487893</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p class="tr">会诊时间：
+                                            <span th:text="${#dates.format(member.opinionTime,'yyyy-MM-dd HH:mm:ss')}" >2016-12-08  14：30</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="info none table_scroll_bar" id="tab_2">
+                        	<!--病历信息-->
+                            <div class="module beizhu">
+                                <ul>
+                                    <li>
+                                        <p class="beizhu-left">备注：</p>
+                                        <p class="beizhu-right "><span style="color:#ba4c55; margin-left:0">该患于入院前1周于劳累后出现胸骨后压榨样疼痛，疼痛范围手掌大小，伴心前区 及左肩部放射性疼痛和咽部紧缩感，伴出汗、恶心，无呼吸困难发热、咳嗽、咳痰、头胀、头痛头晕、晕厥等症 ,无其它不良反应。</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p class="beizhu-left">附件：</p>
+                                        <div class="img-box beizhu-right">
+                                           <img class="img-responsive" th:src="@{../images/photo1.png}" alt="Photo"/>
+                                           <img class="img-responsive" th:src="@{../images/photo2.png}" alt="Photo"/>
+                                           <img class="img-responsive" th:src="@{../images/photo1.png}" alt="Photo"/>
+                                           <img class="img-responsive" th:src="@{../images/photo2.png}" alt="Photo"/>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="second-level-menu-box module">
+                                <ul class="navc">
+                                  <li><a class="current" href="#" id="level1">病历</a></li>
+                                  <li><a href="#" id="level2">影像</a></li>
+                                  <li><a href="#" id="level3">医嘱</a></li>
+                                  <li><a href="#" id="level4">检查</a></li>
+                                </ul>
+                                <div class="second-level-menu">
+                                  <div class="record" id="level_1">
+                                  
+                                    <div class="content_area">
+                                    
+                                        <div class="emr">
+                                            <!-- 电子病历标题-->
+                                            <div class="content_all" style="position:relative;">
+                                                <div class="tml_wrapper" id="tml_wrapper">
+                                                
+                                                    <div id="emrContent" class="item_emr">
+                                                        <div class="line"></div>
+                                                        <div class="link">入院病历</div>
+                                                        <div class="content-box">
+                                                            <div class="ico"></div>
+                                                            <dl>
+                                                                <dt>主诉</dt>
+                                                                <dd>反复头晕30余年，加重伴双下肢乏力2周</dd>
+                                                            </dl>
+                                                            <dl>
+                                                                <dt>个人史</dt>
+                                                                <dd>生于原籍，久居上海，否认疫区接触史，否认烟酒史。</dd>
+                                                            </dl>
+                                                        </div>
+                                                        <div class="link">首次病程</div>
+                                                        <div class="content-box">
+                                                            <div class="ico"></div>
+                                                            <dl>
+                                                                <dt>病历特点</dt>
+                                                                <dd>1、患者，女性，81岁，因&amp;quot;反复头晕50余年，加重伴双下肢乏力</dd>
+                                                            </dl>
+                                                            <dl>
+                                                                <dt>诊疗计划</dt>
+                                                                <dd>（一）治疗计划：高血压健康宣教；监测血压
+                                                                        1、降压（硝苯地平、氯沙坦钾、氢氯噻嗪）；
+                                                                         2、降低心肌氧耗（阿罗洛尔）；
+                                                                        （二）需进一步检查：
+                                                                        1、急查颅脑CT ，完善三大常规、促凝血、肝肾功能、电解质、血糖、血脂、尿蛋白、尿醛固酮；
+                                                                        2、心超、心电图、HOLTER、动态血压、肾及肾上腺肾动脉B超等。
+                                                                </dd>
+                                                            </dl>
+                                                        </div>
+                                                        <div class="link">上级查房</div>
+                                                        <div id="emr3013103" class="content-box">
+                                                            <div class="ico"></div>
+                                                            <dl class="checkTime">
+                                                                <dt>2016-08-24 10:00:00主治医师首次查房记录  </dt>
+                                                                <dd>患者现头晕较入院时好转，无头晕，无胸闷、气促，查体：BP148/82mmHg，两肺呼吸音粗，未</dd>
+                                                            </dl>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--  电子病历结束  -->
+                                    </div>  
+                                    <!--content_area end-->
+                                  
+                                  </div>
+                                  <div class="image none " id="level_2">
+                                    <!--影像开始-->
+                                    <div class="content_area">
+                                        <div class="pacs">
+                                            <div class="content_all" style="position:relative;">
+                                                <div class="tml_wrapper" id="tml_wrapper">
+                                                    <div class="item_pacs item_emr">
+                                                    <div class="line"></div>
+                                                        <div>
+                                                        <div class="link" data-nav="1"  id="scroll_0">CT</div>
+                                                        <div class="content-box">
+                                                            <div class="ico"></div>
+                                                            <dl data-time="2015-07-29">
+                                                                <dd>
+                                                                    <div class="pic">
+                                                                        <a href="#" class="CT"></a>
+                                                                        <a class="rpt" href="javascript:;"></a>
+                                                                    </div>
+                                                                    <div class="text">
+                                                                        <p class="time_s">2017-02-20</p>
+                                                                        <p class="textCon">
+                                                                          <label>检查部位：</label>
+                                                                          <span>肾动脉CTA</span>
+                                                                        </p>
+                                                                        <p class="textCon">
+                                                                            <label>影像所见：</label>
+                                                                            <span>双肾动脉走行正常，管壁见多发钙化斑块，管腔未见明显狭窄。附见：腹主动脉及髂动脉壁钙化。双肾多发低密度囊灶，直径小于1.2cm，边界清晰，无强化。胆囊内环形钙化密度影，直径约1.5cm。</span>
+                                                                        </p>
+                                                                        <p class="textCon">
+                                                                            <label>检查结论：</label>
+                                                                            <span>双肾动脉硬化。
+                        附见：腹主动脉及髂动脉硬化。双肾多发囊肿。胆囊结石。</span>
+                                                                        </p>
+                                                                    </div>
+                                                                </dd>
+                                                            </dl>
+                                                            
+                                                        </div>
+                                                        </div>
+                                                        
+                                                        <div>
+                                                        <div class="link" id="scroll_1">MR</div>
+                                                        <div class="content-box">
+                                                            <div class="ico"></div>
+                                                            <dl data-time="2015-07-26">
+                                                                <dd>
+                                                                    <div class="pic">
+                                                                        <a href="#" class="MR"></a>
+                                                                        <a class="rpt" href="javascript:;"></a>
+                                                                    </div>
+                                                                    <div class="text">
+                                                                        <p class="time_s">2017-02-20</p>
+                                                                        <p class="textCon">
+                                                                          <label>检查部位：</label>
+                                                                          <span>颅内动脉MRA（3D-TOF）</span>
+                                                                        </p>
+                                                                        <p class="textCon">
+                                                                            <label>影像所见：</label>
+                                                                            <span>头颅MRA示：颅底动脉环显示可，右侧大脑后动脉起自颈内动脉（变异），椎动脉右侧优势，脑动脉粗细不均，部分呈串珠样改变，左侧大脑中动脉M2段局限狭窄，各血管未见受压及移位，未见瘤样扩张。</span>
+                                                                        </p>
+                                                                        <p class="textCon">
+                                                                            <label>检查结论：</label>
+                                                                            <span>颅内动脉MRA：脑动脉粥样硬化改变，左侧大脑中动脉M2段局段狭窄，请结合临床。</span>
+                                                                        </p>
+                                                                    </div>
+                                                                </dd>
+                                                            </dl>
+                                                            
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <!--影像结束-->
+                                  
+                                  </div>
+                                  <div class="advice none" id="level_3">
+                                    <!--医嘱开始-->
+                                    <div class="content_area">
+                                        <div class="mor">
+                                            <div class="content-all" style="position:relative;">
+                                                <div class="tab_show">
+                                                    <table id="dataTitle" style="width:100%;border:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="col">开始日期</th>
+                                                                <th scope="col">医嘱名称</th>
+                                                                <th scope="col">数量</th>
+                                                                <th scope="col">用法</th>
+                                                                <th scope="col">频次</th>
+                                                                <th class="hideItem" scope="col" style="display: none;">结束日期</th>
+                                                                <th class="hideItem" scope="col" style="display: none;">执行天数</th>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="scroll_date">
+                                                       <table style="width:100%;border:0;" id="dataTable">
+                                                           <tbody>
+                                                               <tr id="endTr" style="display:none;">
+                                                                    <td style="text-align:center;">暂无数据</td>
+                                                               </tr>
+                                                               <tr>
+                                                               <td>2017-02-20</td><td style="width:30%;">普食[餐    ]</td>
+                                                               <td >1 餐</td>
+                                                               <td ></td>
+                                                               <td >ONCE</td>
+                                                               <td class="forderenddate hideItem" style="display: none;">-</td>
+                                                               <td class="day hideItem" style="display: none;">-</td>
+                                                               </tr>
+                                                               <tr>
+                                                               <td>2017-02-20</td>
+                                                               <td style="width:30%;">B[袋]0.9%氯化钠注射液[500 ml    *1瓶    ]</td>
+                                                               <td >1 瓶</td>
+                                                               <td >静脉滴注</td>
+                                                               <td>ONCE</td>
+                                                               <td class="forderenddate hideItem" style="display: none;">-</td>
+                                                               <td class="day hideItem" style="display: none;">-</td>
+                                                               </tr>
+                                                               <tr>
+                                                               <td>2017-02-20</td>
+                                                               <td style="width:30%;">B[袋]0.9%氯化钠注射液[500 ml    *1瓶    ]</td>
+                                                               <td >1 瓶</td>
+                                                               <td >静脉滴注</td>
+                                                               <td >ONCE</td>
+                                                               <td class="forderenddate hideItem" style="display: none;">-</td>
+                                                               <td class="day hideItem" style="display: none;">-</td>
+                                                               </tr>
+                                                               <tr>
+                                                               <td>2017-02-20</td>
+                                                               <td style="width:30%;">B[袋]0.9%氯化钠注射液[500 ml    *1瓶    ]</td>
+                                                               <td >1 瓶</td>
+                                                               <td >静脉滴注</td>
+                                                               <td >ONCE</td>
+                                                               <td class="forderenddate hideItem" style="display: none;">-</td>
+                                                               <td class="day hideItem" style="display: none;">-</td>
+                                                               </tr>
+                                                               <tr>
+                                                               <td>2017-02-20</td>
+                                                               <td style="width:30%;">B[袋]0.9%氯化钠注射液[500 ml    *1瓶    ]</td>
+                                                               <td >1 瓶</td>
+                                                               <td >静脉滴注</td>
+                                                               <td >ONCE</td>
+                                                               <td class="forderenddate hideItem" style="display: none;">-</td>
+                                                               <td class="day hideItem" style="display: none;">-</td>
+                                                               </tr>
+                                                               
+                                                            </tbody>
+                                                       </table> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                
+                                    <!--医嘱结束-->
+                                  
+                                  </div>
+                                  <div class="inspect none" id="level_4">
+                                    <!--检查开始-->
+                                    <div class="content_area">
+                                        <div class="lis">
+                                            <div class="content-all" style="position:relative;">
+                                                <div class="control_panel">
+                                                    <div id="list_menu" class="list_wrapper">
+                                                        <div class="type" >
+                                                            <ul style="padding-left:0;">
+                                                                <li class="firstLayer" title="生化急诊">
+                                                                    <div class="d_title"><h1>生化急诊</h1><span>4次</span></div>
+                                                                    <div class="d_content">
+                                                                        <ul>
+                                                                            <li class="secondLayer checked" sign="1">
+                                                                                <a href="#">
+                                                                                    <div class="item">
+                                                                                        <div class="dateTime">2016-02-12</div>
+                                                                                        <div>(1)</div>
+                                                                                    </div>
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="d_content">
+                                                                        <ul>
+                                                                            <li class="secondLayer" sign="1">
+                                                                                <a href="#">
+                                                                                    <div class="item">
+                                                                                        <div class="dateTime">2016-11-10</div>
+                                                                                        <div>(2)</div>
+                                                                                    </div>
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="d_content">
+                                                                        <ul>
+                                                                            <li class="secondLayer" sign="1">
+                                                                                <a href="#">
+                                                                                    <div class="item">
+                                                                                        <div class="dateTime">2016-12-20</div>
+                                                                                        <div>(3)</div>
+                                                                                    </div>
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="d_content">
+                                                                        <ul>
+                                                                            <li class="secondLayer" sign="1">
+                                                                                <a href="#">
+                                                                                    <div class="item">
+                                                                                        <div class="dateTime">2017-02-20</div>
+                                                                                        <div>(4)</div>
+                                                                                    </div>
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </li>
+                                                                <li class="firstLayer" title="血常规">
+                                                                    <div class="d_title"><h1>血常规</h1><span>1次</span></div>
+                                                                    <div class="d_content" style="display:none;">
+                                                                        <ul>
+                                                                            <li class="secondLayer" sign="1">
+                                                                                <a href="#">
+                                                                                    <div class="item">
+                                                                                        <div class="dateTime">2017-02-20</div>
+                                                                                        <div>(1)</div>
+                                                                                    </div>
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </li>
+                                                                <li class="firstLayer" title="肾功能">
+                                                                    <div class="d_title"><h1>肾功能</h1><span>1次</span></div>
+                                                                    <div class="d_content" style="display:none;">
+                                                                        <ul>
+                                                                            <li class="secondLayer" sign="1">
+                                                                                <a href="#">
+                                                                                    <div class="item">
+                                                                                        <div class="dateTime">2017-02-20</div>
+                                                                                        <div>(1)</div>
+                                                                                    </div>
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </li>
+                                                                <li class="firstLayer" title="血常规">
+                                                                    <div class="d_title"><h1>血常规</h1><span>1次</span></div>
+                                                                    <div class="d_content" style="display:none;">
+                                                                        <ul>
+                                                                            <li class="secondLayer" sign="1">
+                                                                                <a href="#">
+                                                                                    <div class="item">
+                                                                                        <div class="dateTime">2017-02-20</div>
+                                                                                        <div>(1)</div>
+                                                                                    </div>
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </li>
+                                                                <li class="firstLayer" title="血常规">
+                                                                    <div class="d_title"><h1>血常规</h1><span>1次</span></div>
+                                                                    <div class="d_content" style="display:none;">
+                                                                        <ul>
+                                                                            <li class="secondLayer" sign="1">
+                                                                                <a href="#">
+                                                                                    <div class="item">
+                                                                                        <div class="dateTime">2017-02-20</div>
+                                                                                        <div>(1)</div>
+                                                                                    </div>
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        
+                                                        
+                                                        <div class="date none">
+                                                            <ul style="padding-left:0;">
+                                                            <li class="firstLayer" title="2015-07-29">
+                                                            <div class="d_title">
+                                                            <h1>2017-02-20</h1>
+                                                            <span>1项</span>
+                                                            </div>
+                                                            <div class="d_content" style="display:none;">
+                                                            <ul>
+                                                            <li class="secondLayer" sign="1">
+                                                            <a href="#">
+                                                            <div class="item">
+                                                            <div class="dateTime">生化生化总报告</div>
+                                                            <div>
+                                                            </div>
+                                                            </div>
+                                                            </a>
+                                                            </li>
+                                                            </ul>
+                                                            </div>
+                                                            </li>
+                                                            
+                                                            <li class="firstLayer" title="2015-07-21">
+                                                            <div class="d_title">
+                                                            <h1>2017-02-20</h1>
+                                                            <span>3项</span>
+                                                            </div>
+                                                            <div class="d_content">
+                                                            <ul>
+                                                            <li class="secondLayer" sign="1">
+                                                            <a href="#">
+                                                            <div class="item">
+                                                            <div class="dateTime">生化急诊V5600</div>
+                                                            <div>
+                                                            </div>
+                                                            </div>
+                                                            </a>
+                                                            </li>
+                                                            
+                                                            <li class="secondLayer" sign="1">
+                                                            <a href="#">
+                                                            <div class="item">
+                                                            <div class="dateTime">血常规XE5000</div>
+                                                            <div>
+                                                            </div>
+                                                            </div>
+                                                            </a>
+                                                            </li>
+                                                            
+                                                            <li class="secondLayer" sign="1">
+                                                            <a href="#">
+                                                            <div class="item">
+                                                            <div class="dateTime">血凝stago</div>
+                                                            <div>
+                                                            </div>
+                                                            </div>
+                                                            </a>
+                                                            </li>
+                                                            </ul>
+                                                            </div>
+                                                            </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            
+                                            
+                                                <div class="tab_show">
+                                                    <table style="width:100%;border:0;">
+                                                        <tbody>
+                                                            <tr style="height:2.4rem;">
+                                                                <th style="width:30%" scope="col">项目名称</th>
+                                                                <th style="width:15%" scope="col">检验结果</th>
+                                                                <th style="width:20%" scope="col">参考值</th>
+                                                                <th style="width:10%" scope="col">单位</th>
+                                                                <th style="width:25%" scope="col">英文名称</th>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="scroll_date">
+                                                       <table style="width:100%;border:0;">
+                                                           <tbody id="dataList">
+                                                                
+                                                               <!-- 具体数据 -->
+                                                               <tr style="cursor: pointer;" >
+                                                                   <td style="width:30%">NT-proBNP</td>
+                                                                   <td style="width:15%">
+                                                                        <a href="#">531.1000</a>
+                                                                   </td>
+                                                                   <td style="width:20%">200-500</td>
+                                                                   <td style="width:10%">pg/ml</td>
+                                                                   <td style="width:25%">BNP2</td>
+                                                               </tr>
+                                                               <tr style="cursor: pointer;" >
+                                                                   <td style="width:30%">肌酸激酶同功酶</td>
+                                                                   <td style="width:15%">
+                                                                        <a href="#">0.7400</a>
+                                                                   </td>
+                                                                   <td style="width:20%">0.0～2.4</td>
+                                                                   <td style="width:10%">ng/ml</td>
+                                                                   <td style="width:25%">CK-MB</td>
+                                                               </tr>
+                                                               <tr style="cursor:pointer;" >
+                                                                   <td style="width:30%">CA125</td>
+                                                                   <td style="width:15%">
+                                                                        <a href="#">16.2000</a>
+                                                                   </td>
+                                                                   <td style="width:20%">0.00～35.00</td>
+                                                                   <td style="width:10%">U/mL</td>
+                                                                   <td style="width:25%">CA_125</td>
+                                                               </tr>
+                                                               
+                                                           </tbody>
+                                                       </table> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                
+                                                
+                                   <!--检查结束-->
+                                  
+                                  </div>
+                                </div>
+                            </div>
+                            
+                        	<!--病历信息结束-->
+                        </div>
+                        <div class="interactive none " id="tab_3">
+                            <div class="video_bottom_box ">
+                            	<div class="video_bottom module">
+                                    <ul class="video_bottom_left">
+                                    	<li class="img"></li>
+                                        <li class="video">**医院会诊视频</li>
+                                        <li class="size">3.5M</li>
+                                        <li class="time">2017-02-19</li>
+                                    </ul>
+                                    <ul class="video_bottom_right">
+                                    	<li class="btn"><a href="#">会诊视频回放</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="talk-box table_scroll_bar" style="height:100%;">
+                                <div class="module">
+                                    <div class="other_box public_part">
+                                        <div class="dialogue_box">
+                                            <p class="name"><span style="margin-left:0;">胡医生</span><span>主治医师</span></p>
+                                            <div class="dialogue">
+                                                <span>该患于入院前1周于劳累后出现胸骨后压无其它不良反应。该患于入院前1周于劳累后出现胸骨后压无其它不良反应。该患于入院前1周于劳累后出现胸骨后压无其它不良反应。</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my_box public_part">
+                                        <div class="dialogue_box">
+                                            <p class="name"><span style="margin-left:0;">李医生</span><span>主治医师</span></p>
+                                            <div class="dialogue">
+                                                <span>该患于入院前1周于劳累后出现胸骨后压无其它不良反应。</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my_box public_part">
+                                        <div class="dialogue_box">
+                                            <p class="name"><span style="margin-left:0;">李医生</span><span>主治医师</span></p>
+                                            <div class="dialogue">
+                                                <span>该患于入院前1周于劳累后出现胸骨后压无其它不良反应。</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my_box public_part">
+                                        <div class="dialogue_box">
+                                            <p class="name"><span style="margin-left:0;">李医生</span><span>主治医师</span></p>
+                                            <div class="dialogue">
+                                                <span>该患于入院前1周于劳累后出现胸骨后压无其它不良反应。</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my_box public_part">
+                                        <div class="dialogue_box">
+                                            <p class="name"><span style="margin-left:0;">李医生</span><span>主治医师</span></p>
+                                            <div class="dialogue">
+                                                <span>该患于入院前1周于劳累后出现胸骨后压无其它不良反应。</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my_box public_part">
+                                        <div class="dialogue_box">
+                                            <p class="name"><span style="margin-left:0;">李医生</span><span>主治医师</span></p>
+                                            <div class="dialogue">
+                                                <span>该患于入院前1周于劳累后出现胸骨后压无其它不良反应。</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my_box public_part">
+                                        <div class="dialogue_box">
+                                            <p class="name"><span style="margin-left:0;">李医生</span><span>主治医师</span></p>
+                                            <div class="dialogue">
+                                                <span>该患于入院前1周于劳累后出现胸骨后压无其它不良反应。</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="other_box public_part">
+                                        <div class="dialogue_box">
+                                            <p class="name"><span style="margin-left:0;">胡医生</span><span>主治医师</span></p>
+                                            <div class="dialogue">
+                                                <span>该患于入院前1周于劳累后出现胸骨后压无其它不良反应。该患于入院前1周于劳累后出现胸骨后压无其它不良反应。该患于入院前1周于劳累后出现胸骨后压无其它不良反应。</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeLine"><span>2017-02-18 15:16</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end of msg -->
+                </div>
+                <div class="side">
+                	<div class="container_1">
+                        <div class="tab">
+                            <p>前质控管理</p>
+                        </div>
+                        <div class="msg">
+                            <form>
+                                <div class="item">
+                                    <p>质控意见:</p>
+                                    <select id="quality_opinion" class="qc mt20 mb15">
+                                          <option value="1">信息匹配</option>
+                                          <option value="2">不符合会诊申请条件</option>
+                                          <option value="3">病历资料不全</option>
+                                          <option value="4">其它（协商取消）</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <p>流程备注:</p>
+                                    <textarea class="qc mt20 mb15 note"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="btn">
+                            <ul>
+                                <li><a class="receive_btn" >前质控完成</a></li>
+                                <li><a id="back_btn1" class="normal" href="#">驳回</a></li> <!-- 要激活退回状态只需把样式替换成 selected  即可 -->
+                            </ul>
+                        </div> 
+                	</div> <!-- end of first -->
+                    <div class="container_2">
+                        <div class="tab">
+                            <p>会诊分配</p>
+                        </div>
+                        <div class="msg">
+                            <form>
+                                <div class="item mb15">
+                                    <label>指定医院:</label>
+                                    <select id="hopit" class="qc fp">
+                                          <option value="1">中山大学孙逸仙纪念医院</option>
+                                          <option value="2">广州医科大学附属第一医院</option>
+                                          <option value="3">上交大医学院附属第九人民医院（南院）</option>
+                                          <option value="4">上交大医学院附属第九人民医院（北院）</option>
+                                    </select>
+                                </div>
+                                <div class="item mb15">
+                                    <label>指定科室:</label>
+                                    <select id="Cont_1" class="qc fp">
+                                         	<option value="">小儿外科病区</option>
+                                            <option value="">急诊科病区</option>
+                                            <option value="">产房</option>
+
+                                    </select>
+                                    <select id="Cont_2" class="qc fp none">
+                                             <option value=""> 普通外科(海印)</option>
+                                            <option value="">泌尿外科二区(海印)</option>
+                                            <option value="">放疗科(海印)</option>
+
+                                    </select>
+                                    <select id="Cont_3" class="qc fp none">
+                                           <option value="">骨一病区</option>         
+                                            <option value="">妇科病区</option>            
+                                            <option value="">眼科病区</option>            
+                                            <option value="">耳鼻病房</option>            
+                                    </select>
+                                    <select id="Cont_4" class="qc fp none">
+                                           	<option value="">耳鼻咽喉头颈外科三病区</option>
+                                            <option value="">普二三四科病区</option>
+                                            <option value="">神经外科病区</option>
+                                    </select>
+                                    
+                                    
+                                </div>
+                                 <div class="item mb15">
+                                    <label>指定医生:</label>
+                                    <select class="qc fp">
+                                          <option value="">张超明</option>
+                                          <option value="">刘启东</option>
+                                    </select>
+                                </div>
+                                 <div class="item mb15">
+                                    <p class="mb15">会诊时间:</p>
+                                    <input type="date" class="qc fp" style="width:60%; margin-right:2%; float:left;"/>
+                                    <input type="time" class="qc fp" style="width:38%;"/>
+                                </div>
+                               
+                                <div class="item">
+                                    <p>分诊意见:</p>
+                                    <select  class="qc mt20 mb15">
+                                          <option value="1">符合会诊接收条件</option>
+                                          <option value="2">不符合会诊条件</option>
+                                          <option value="3">病历资料不全</option>
+                                          <option value="4">其它（协商取消）</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <p>备注:</p>
+                                    <textarea class="qc mt20 mb15 note"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="btn">
+                            <ul>
+                                <li><a class="complete_btn" href="#" id="assignmentComplete">分配</a></li>
+                                <li><a id="back_btn2" class="normal selected" href="#">驳回</a></li> <!-- 要激活退回状态只需把样式替换成 selected  即可 -->
+                            </ul>
+                        </div> 
+                	</div> <!-- end of second -->
+                    <div class="container_3">
+                        <div class="tab">
+                            <p>后质控管理</p>
+                        </div>
+                        <div class="msg" >
+                            <p class="mb50 ml40">会诊医院：<span>中日友好医院</span></p>
+                            <p class="mb50 ml40">会诊科室：<span>消化内科</span></p>
+                            <p class="mb50 ml40">会诊医生：<span>王小丫</span></p>
+                            <p class="mb50 ml40">会诊时间：<span>2017-02-18</span></p>
+                            <div class="item mb15">
+                                <p class="mb15">会诊意见:</p>
+                                <p style="margin-top:1rem;"><span style="margin-left:0;">该患于入院前1周于劳累后出现胸骨后压榨样疼痛，疼痛范围手掌大小，伴心前区 及左肩部放射性疼痛和咽部紧缩感，伴出汗、恶心，无呼吸困难发热、咳嗽、咳痰、头胀、头痛、头晕、晕厥等症。</span></p>
+                            </div>
+                            <form>
+                                <div class="item">
+                                    <p>质控意见:</p>
+                                    <select class="qc mt20 mb15">
+                                          <option value="1">会诊报告质量符合要求</option>
+                                          <option value="2">报告质量不合格</option>
+                                          <option value="3">会诊报告依据不足</option>
+                                          <option value="4">其它</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <p>流程备注:</p>
+                                    <textarea class="qc mt20 mb15 note"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="btn">
+                            <ul>
+                                <li><a class="handle" >发起会诊</a></li>
+                                <li><a id="" class="normal selected" >驳回</a></li> <!-- 要激活退回状态只需把样式替换成 selected  即可 -->
+                            </ul>
+                        </div> 
+                	</div> <!-- end of four -->
+                    <div class="container_4">
+                        <div class="tab">
+                            <p>会诊完成</p>
+                        </div>
+                        <div class="msg">
+                            <p class="mb50 ml40">会诊医院：<span>中日友好医院</span></p>
+                            <p class="mb50 ml40">会诊科室：<span>消化内科</span></p>
+                            <p class="mb50 ml40">会议医生：<span>王小丫</span></p>
+                            <p class="mb50 ml40">会议时间：<span>2017-02-18</span></p>
+                            <div class="item mb50">
+                                <p class="mb15">会诊意见:</p>
+                                <p style="margin-top:1rem;"><span style="margin-left:0;">该患于入院前1周于劳累后出现胸骨后压榨样疼痛，疼痛范围手掌大小，伴心前区 及左肩部放射性疼痛和咽部紧缩感，伴出汗、恶心，无呼吸困难发热、咳嗽、咳痰、头胀、头痛、头晕、晕厥等症。</span></p>
+                            </div>
+                            <p class="mb50 ml40">质控意见:<span>会诊报告质量符合要求</span></p>
+                            <p class="mb50 ml40">备注:<span></span></p>
+                        </div>
+                        <div class="btn">
+                            <ul>
+                                <li style="width:100%;"><a class="normal selected" >驳回</a></li>
+                            </ul>
+                        </div> 
+                	</div> <!-- end of five -->
+                    <div class="container_5">
+                        <div class="tab">
+                            <p>后质控管理</p>
+                        </div>
+                        <div class="msg">
+                            <p class="mb50 ml40">会诊医院：<span>中日友好医院</span></p>
+                            <p class="mb50 ml40">会诊科室：<span>消化内科</span></p>
+                            <p class="mb50 ml40">会诊医生：<span>王小丫</span></p>
+                            <p class="mb50 ml40">会诊时间：<span>2017-02-18</span></p>
+                            <div class="item mb15">
+                                <p class="mb15">会诊意见:</p>
+                                <p style="margin-top:1rem;"><span style="margin-left:0;">该患于入院前1周于劳累后出现胸骨后压榨样疼痛，疼痛范围手掌大小，伴心前区 及左肩部放射性疼痛和咽部紧缩感，伴出汗、恶心，无呼吸困难发热、咳嗽、咳痰、头胀、头痛、头晕、晕厥等症。</span></p>
+                            </div>
+                            <form>
+                                <div class="item">
+                                    <p>质控意见:</p>
+                                    <select id="quality_opinion" class="qc mt20 mb15">
+                                        <option value="1">会诊报告质量符合要求</option>
+                                        <option value="2">报告质量不合格</option>
+                                        <option value="3">会诊报告依据不足</option>
+                                        <option value="4">其它</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <p>流程备注:</p>
+                                    <textarea class="qc mt20 mb15 note"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="btn">
+                            <ul>
+                                <li><a class="" href="#" id="afterControl">后指控完成</a></li>
+                                <li><a  class="normal selected" >驳回</a></li> <!-- 要激活退回状态只需把样式替换成 selected  即可 -->
+                            </ul>
+                        </div>
+                    </div> <!-- end of four -->
+                </div> <!-- end of side -->
+            </div> <!-- end of right -->
+        </div>
+</div>
+<script th:src="@{../js/jquery-1.8.2.min.js}" type="text/jscript"></script>
+<script th:src="@{../css/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
+<script th:src="@{../js/main.js}" type="text/jscript"></script>
+<script th:src="@{../js/consultationShow.js}" type="text/jscript"></script>
+
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+
+    /*]]>*/
+</script>
+</body>
+</html>

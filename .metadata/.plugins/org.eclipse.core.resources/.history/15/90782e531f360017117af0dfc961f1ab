@@ -1,0 +1,316 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>转诊详情</title>
+<link th:href="@{../css/base.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{../css/main.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{../css/page.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{../css/mCustomScrollbar/jquery.mCustomScrollbar.css}" type="text/css" rel="stylesheet"/>
+
+</head>
+
+<body>
+<div class="rms_wrapper">
+        <div class="sms_layer none">
+            <div class="t_title">
+            	<p>转诊分配短信信息</p>
+            </div>
+            <div class="cont">
+            	<p>尊敬的**您好，您的双向转诊分配成功，请您于<span>2016-12-06 13:30</span>到<span>****医院</span><span>**科室</span>进行就诊，您的主治医生为<span>张**</span>，床号为<span>06床</span>。</p> 
+                <div class="btn_submit"><a herf="" class="apply">确定</a><a herf="" class="cancel" >取消</a></div>
+            </div>
+            
+            
+        </div> <!-- 弹层 -->
+
+    	<div class="top">
+        	<div class="logo f18">安泰远程医疗系统</div>
+            <div class="user">
+            	<div class="f14">
+                	<div class="ico"></div>
+                    <span id="orgName">Alexander Pierce</span>
+                </div>
+                <a  href="#" class="arrow" id="setting-icon"><i></i></a>
+                <div class="setting-box" id="setting">
+                    <ul class="">
+                        <li><a href="#">设置</a></li>
+                        <li class="li-line"></li>
+                        <li><a href="#">退出</a></li>
+                    </ul>
+                    <div class="sanjiao"></div>
+                </div>
+            </div>
+            <!-- 顶部样式结束 -->
+        </div>
+        
+        <div class="main">
+        	<div class="left">
+            	<div class="h_logo"></div>
+                <div class="nav">
+                	<ul>
+                    	<li><i></i><a class="consultation" th:onclick="'consultationCenter();'">会诊中心</a></li>
+                        <li class="selected"><i></i><a class="refeer" th:onclick="'referral();'">双向转诊</a></li>
+                        <li><i></i><a class="chart" href="#">统计分析</a></li>
+                        <li><i></i><a class="sys" href="#">系统管理</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 左侧导航样式结束 -->
+            
+            <div class="right">
+            	<div class="box">
+                	<div class="tab">
+                    	<a class="back" href="referral.html">返回</a>
+                        <div class="label">
+                        	<ul>
+                            	<li><a class="selected" href="#">转诊详情</a></li>
+                                <li><a href="#">病历信息</a></li>
+                                <li><a href="#">交互信息</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- end of tab -->
+                    <div class="msg">
+                    	<div class="details table_scroll_bar" id="tab_1">
+                            <div class="module progress">
+                                <ul>
+                                    <li class="selected">
+                                        <div class="state">申请完成</div>
+                                        <div class="line">
+                                            <div class="color_line"></div>
+                                            <i></i>
+                                        </div>
+                                        <div class="user">
+                                            <div class="date f16"> 2015-12-20   13:30</div>
+                                            <div class="name f16">深圳市儿童医院</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="state">前质控完成</div>
+                                        <div class="line">
+                                            <div class="color_line"></div>
+                                            <i></i>
+                                        </div>
+                                        <div class="user">
+                                            <div class="date f16"> 2015-12-20   13:30</div>
+                                            <div class="name f16">深圳市儿童医院</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="state">分配完成</div>
+                                        <div class="line">
+                                            <div class="color_line"></div>
+                                            <i></i>
+                                        </div>
+                                        <div class="user">
+                                            <div class="date f16"> 2015-12-20   13:30</div>
+                                            <div class="name f16">深圳市儿童医院</div>
+                                        </div>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                            <div class="module patient">
+                                <div class="title">患者信息</div>
+                                <ul>
+                                    <li><p>患者姓名：<span th:text="${result.referral.patientName}">张*明</span></p></li>
+                                    <li><p>性别：<span>
+                                    	<span th:if="${result.referral.patientGender=='1'}">男</span>
+                                    	<span th:if="${result.referral.patientGender=='2'}">女</span>
+											</span></p></li>
+                                    <li><p>年龄：<span th:text="${result.referral.patientAge}">53</span></p></li>
+                                    <li><p>患者类型：<span>
+                                    		<span th:if="${result.referral.patientSnoType=='1'}">门诊</span>
+                                    		<span th:if="${result.referral.patientSnoType=='2'}">住院</span>
+                                   		</span></p>
+                                 		</li>
+                                    <li><p class="tr">住院/门诊号：<span th:text="${result.referral.patientSno}">YB03477612</span></p></li>
+                                </ul>
+                            </div>
+                            <div class="module apply">
+                                <div class="title">转诊信息</div>
+                                <ul>
+                                    <li><p>转诊目的：<span th:text="${result.referral.referralPurpose}">  危重疑难病 , 请上级医院接收</span></p></li>
+                                    <li>
+                                    	<p>转诊类型：
+                                    	<span>  
+                                    		<span th:text="${result.referral.referralType=='1'}">上转诊</span>
+                                    		<span th:text="${result.referral.referralType=='2'}">下转诊</span>
+                                   		</span>
+                                    	</p>
+                                   	</li>
+                                </ul>
+                                <ul>
+                                    <li><p>ICD--10：<span>E10 :  胰岛素依赖型糖尿病</span></p></li>
+                                    <li><p>申请时间：  <span> 2016-03-12  13:00</span></p></li>
+                                </ul>
+                                <ul>
+                                    <li><p>转出医院： <span>  深圳市儿童医院 /  消化内科</span></p></li>
+                                    <li><p>转入医院： <span>  北京儿童医院 /  呼吸内科</span></p></li>
+                                </ul>
+                            </div>
+                            <div class="module diagnosis">
+                                <div class="title">临床信息</div>
+                                <ul>
+                                    <li><p>初步诊断：<span>该患于入院前1周于劳累后出现胸骨后压榨样疼痛，疼痛范围手掌大小，伴心前区 及左肩部放射性疼痛和咽部紧缩感，伴出汗、恶心，无呼
+                                           吸困难发热咳嗽、咳痰、头胀、头痛头晕、晕厥等症。疼痛持续约5分钟，休息后缓解.</span></p></li>
+                                </ul>
+                            </div>
+                            <div class="module consultation_report">
+                                <div class="title">会诊信息</div>
+                                <ul>
+                                    <li><p>会诊报告：<span>该患于入院前1周于劳累后出现胸骨后压榨样疼痛，疼痛范围手掌大小，伴心前区 及左肩部放射性疼痛和咽部紧缩感，伴出汗、恶心，无呼
+                                           吸困难发热咳嗽、咳痰、头胀、头痛头晕、晕厥等症。疼痛持续约5分钟，休息后缓解.</span></p></li>
+                                </ul>
+                                <ul class="mt20">
+                                    <li><p>会诊专家：<span>张超阳</span></p></li>
+                                    <li><p>联系电话：<span>13590487893</span></p></li>
+                                    <li><p class="tr">会诊时间：<span>2016-12-08  14：30</span></p></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!-- end of msg -->
+                </div>
+                <div class="side">
+                	<div class="container_1">
+                        <div class="tab">
+                            <p>前质控管理</p>
+                        </div>
+                        <div class="msg">
+                            <form>
+                                <div class="item">
+                                    <p>质控意见:</p>
+                                    <select id="quality_opinion" class="qc mt20 mb15">
+                                          <option value="1">符合转诊接收条件</option>
+                                          <option value="2">不符合转诊条件</option>
+                                          <option value="3">病历资料不全</option>
+                                          <option value="4">其它（协商取消）</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <p>备注:</p>
+                                    <textarea class="qc mt20 mb15 note"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="btn">
+                            <ul>
+                                <li><a class="receive_btn" href="#">接收转诊</a></li>
+                                <li><a id="back_btn1" class="normal" href="#">退回</a></li> <!-- 要激活退回状态只需把样式替换成 selected  即可 -->
+                            </ul>
+                        </div> 
+                	</div> <!-- end of first -->
+                    <div class="container_2">
+                        <div class="tab">
+                            <p>转诊分配</p>
+                        </div>
+                        <div class="msg">
+                            <form>
+                                <div class="item mb15">
+                                    <label>分配医院:</label>
+                                    <select id="hopit" class="qc fp">
+                                          <option value="1">中山大学孙逸仙纪念医院</option>
+                                          <option value="2">广州医科大学附属第一医院</option>
+                                          <option value="3">上交大医学院附属第九人民医院（南院）</option>
+                                          <option value="4">上交大医学院附属第九人民医院（北院）</option>
+                                    </select>
+                                </div>
+                                <div class="item mb15">
+                                    <label>分配科室:</label>
+                                    <select id="Cont_1" class="qc fp">
+                                         	<option value="">小儿外科病区</option>
+                                            <option value="">急诊科病区</option>
+                                            <option value="">产房</option>
+                                           
+                                    </select>
+       
+                                    
+                                    
+                                </div>
+                                 <div class="item mb15">
+                                    <p class="mb15">分配时间:</p>
+                                    <input type="date" class="qc fp" style="width:60%; margin-right:2%; float:left;"/>
+                                    <input type="time" class="qc fp" style="width:38%;"/>
+                                </div>
+                                <div class="item mb15">
+                                    <label>分配床位:</label>
+                                    <select class="qc fp">
+                                          <option value="">01床</option>
+                                          <option value="">02床</option>
+                                          <option value="">03床</option>
+                                          <option value="">04床</option>
+                                          <option value="">05床</option>
+                                          <option value="">06床</option>
+                                          <option value="">07床</option>
+                                          <option value="">08床</option>
+                                          <option value="">09床</option>
+                                          <option value="">10床</option>
+                                          <option value="">11床</option>
+                                          <option value="">12床</option>
+                                          <option value="">13床</option>
+                                          <option value="">14床</option>
+                                          <option value="">15床</option>
+                                          <option value="">16床</option>
+                                    </select>
+                                </div>
+                                <div class="item mb15">
+                                    <p class="mb15">分配医生:</p>
+                                    <select class="qc fp" style="width:70%;">
+                                          <option value="">张超明</option>
+                                          <option value="">刘启东</option>
+                                    </select>
+                                    <input type="button" class="roaster" value="排班表"/>
+                                </div>
+                                <div class="item">
+                                    <p>质控意见:</p>
+                                    <select id="quality_opinion" class="qc mt20 mb15">
+                                          <option value="1">符合转诊接收条件</option>
+                                          <option value="2">不符合转诊条件</option>
+                                          <option value="3">病历资料不全</option>
+                                          <option value="4">其它（协商取消）</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <p>备注:</p>
+                                    <textarea class="qc mt20 mb15 note"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="btn">
+                            <ul>
+                                <li><a class="complete_btn" href="#">分配完成</a></li>
+                                <li><a id="back_btn2" class="normal" href="#">退回</a></li> <!-- 要激活退回状态只需把样式替换成 selected  即可 -->
+                            </ul>
+                        </div> 
+                	</div> <!-- end of second -->
+                    <div class="container_3">
+                        <div class="tab">
+                            <p>转诊完成</p>
+                        </div>
+                        <div class="msg">
+                            <p class="mb50 ml40">转诊医院：<span>中山大学孙逸仙纪念医院</span></p>
+                            <p class="mb50 ml40">分配科室：<span>消化内科</span></p>
+                            <p class="mb50 ml40">分配时间：<span>2016-12-06 13：30</span></p>
+                            <p class="mb50 ml40">分配床位：<span>06床</span></p>
+                            <p class="mb50 ml40">分配医生：<span>张晓阳</span></p>
+                            <p class="mb50 ml40">备注：<span></span></p>
+                            <p class="mb50 ml40 mr30">短信信息：<span class="lh180">尊敬的**您好，您的双向转诊分配成功，请您于2016-12-06 13:30到****医院**科室进行就诊，您的主治医生为张**，床号为06床。</span></p>
+                        </div>
+                        <div class="btn">
+                            <ul>
+                                <li style="width:100%;"><a href="#">打印转诊单</a></li>
+                            </ul>
+                        </div> 
+                	</div> <!-- end of third -->
+                </div> <!-- end of side -->
+            </div> <!-- end of right -->
+        </div>
+<div id="bg" class="bg none">这里是遮罩层</div>       
+</div>
+<script th:src="@{../js/jquery-1.8.2.min.js}" type="text/jscript"></script>
+<script th:src="@{../css/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
+<script th:src="@{../js/main.js}" type="text/jscript"></script>
+<!--[if lte IE 9]><script th:src="@{../js/selectivizr.js}"></script><![endif]-->
+<script th:src="@{../js/referralDetail.js}" type="text/jscript"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+package com.annet.mapper;
+
+import com.annet.model.ReferralMember;
+
+public interface ReferralMemberMapper {
+    int deleteByPrimaryKey(Long referralMemberId);
+
+    int insert(ReferralMember record);
+
+    int insertSelective(ReferralMember record);
+
+    ReferralMember selectByPrimaryKey(Long referralMemberId);
+
+    int updateByPrimaryKeySelective(ReferralMember record);
+
+    int updateByPrimaryKey(ReferralMember record);
+}

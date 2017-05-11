@@ -1,0 +1,46 @@
+package com.annet.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.annet.mapper.ConsultationMapper;
+import com.annet.model.Consultation;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
+@Service
+@Transactional
+public class ConsultationService {
+	@Autowired
+	private ConsultationMapper consultationMapper;
+	
+	 /**
+     * 发出的会诊列表
+     * @param orgCode  机构编码
+     * @param page     当前页
+     * @param size     每页显示数量
+     * @return
+     */
+    public Map<String,Object> sendList(String orgCode, int page, int size) {
+        PageHelper.startPage(page,size);
+        /*ConsultationExample example = new ConsultationExample();
+        ConsultationExample.Criteria criteria = example.createCriteria();
+        criteria.andOrgCodeEqualTo(orgCode);
+        List<Consultation> cons = consultationMapper.selectByExample(example);*/
+        List<Consultation> consultations = consultationMapper.selectByOrgCode(orgCode);
+        PageInfo<Consultation> consPage = new PageInfo<>(consultations);
+        //List<Consultation> cons = consultationMapper.selectByOrgCodePage(orgCode,page,size);
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("cons",consultations);
+        resultMap.put("totalSize",consPage.getTotal());
+        resultMap.put("totalPage",consPage.getPages());
+        resultMap.put("currentPage",page);
+        resultMap.put("type","send");
+        return resultMap;
+    }
+}

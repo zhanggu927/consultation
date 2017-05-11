@@ -1,0 +1,30 @@
+package com.annet.core.mapper;
+
+import com.annet.core.model.ConsultationMember;
+import com.annet.core.model.ConsultationMemberExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface ConsultationMemberMapper {
+    int countByExample(ConsultationMemberExample example);
+
+    int deleteByExample(ConsultationMemberExample example);
+
+    int deleteByPrimaryKey(Long consultationMemberId);
+
+    int insert(ConsultationMember record);
+
+    int insertSelective(ConsultationMember record);
+
+    List<ConsultationMember> selectByExample(ConsultationMemberExample example);
+
+    ConsultationMember selectByPrimaryKey(Long consultationMemberId);
+
+    int updateByExampleSelective(@Param("record") ConsultationMember record, @Param("example") ConsultationMemberExample example);
+
+    int updateByExample(@Param("record") ConsultationMember record, @Param("example") ConsultationMemberExample example);
+
+    int updateByPrimaryKeySelective(ConsultationMember record);
+
+    int updateByPrimaryKey(ConsultationMember record);
+}

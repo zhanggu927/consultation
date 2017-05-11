@@ -1,0 +1,30 @@
+package com.annet.core.mapper;
+
+import com.annet.core.model.ConsultationCenterConfig;
+import com.annet.core.model.ConsultationCenterConfigExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface ConsultationCenterConfigMapper {
+    int countByExample(ConsultationCenterConfigExample example);
+
+    int deleteByExample(ConsultationCenterConfigExample example);
+
+    int deleteByPrimaryKey(Long consultationCenterId);
+
+    int insert(ConsultationCenterConfig record);
+
+    int insertSelective(ConsultationCenterConfig record);
+
+    List<ConsultationCenterConfig> selectByExample(ConsultationCenterConfigExample example);
+
+    ConsultationCenterConfig selectByPrimaryKey(Long consultationCenterId);
+
+    int updateByExampleSelective(@Param("record") ConsultationCenterConfig record, @Param("example") ConsultationCenterConfigExample example);
+
+    int updateByExample(@Param("record") ConsultationCenterConfig record, @Param("example") ConsultationCenterConfigExample example);
+
+    int updateByPrimaryKeySelective(ConsultationCenterConfig record);
+
+    int updateByPrimaryKey(ConsultationCenterConfig record);
+}

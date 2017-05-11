@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.annet.mapper.ConsultationMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.annet.model.ConsultationMember" >
+    <id column="consultation_member_id" property="consultationMemberId" jdbcType="BIGINT" />
+    <result column="consultation_id" property="consultationId" jdbcType="VARCHAR" />
+    <result column="consultation_opinion" property="consultationOpinion" jdbcType="VARCHAR" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="department_no" property="departmentNo" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="opinion_time" property="opinionTime" jdbcType="TIMESTAMP" />
+    <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    consultation_member_id, consultation_id, consultation_opinion, department_name, department_no, 
+    gender, name, opinion_time, org_code, org_name, phone, role, user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_consultation_member
+    where consultation_member_id = #{consultationMemberId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_consultation_member
+    where consultation_member_id = #{consultationMemberId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.annet.model.ConsultationMember" >
+    insert into tbl_consultation_member (consultation_member_id, consultation_id, 
+      consultation_opinion, department_name, department_no, 
+      gender, name, opinion_time, 
+      org_code, org_name, phone, 
+      role, user_id)
+    values (#{consultationMemberId,jdbcType=BIGINT}, #{consultationId,jdbcType=VARCHAR}, 
+      #{consultationOpinion,jdbcType=VARCHAR}, #{departmentName,jdbcType=VARCHAR}, #{departmentNo,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{opinionTime,jdbcType=TIMESTAMP}, 
+      #{orgCode,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{role,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.annet.model.ConsultationMember" >
+    insert into tbl_consultation_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="consultationMemberId != null" >
+        consultation_member_id,
+      </if>
+      <if test="consultationId != null" >
+        consultation_id,
+      </if>
+      <if test="consultationOpinion != null" >
+        consultation_opinion,
+      </if>
+      <if test="departmentName != null" >
+        department_name,
+      </if>
+      <if test="departmentNo != null" >
+        department_no,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="opinionTime != null" >
+        opinion_time,
+      </if>
+      <if test="orgCode != null" >
+        org_code,
+      </if>
+      <if test="orgName != null" >
+        org_name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="consultationMemberId != null" >
+        #{consultationMemberId,jdbcType=BIGINT},
+      </if>
+      <if test="consultationId != null" >
+        #{consultationId,jdbcType=VARCHAR},
+      </if>
+      <if test="consultationOpinion != null" >
+        #{consultationOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentNo != null" >
+        #{departmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="opinionTime != null" >
+        #{opinionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.annet.model.ConsultationMember" >
+    update tbl_consultation_member
+    <set >
+      <if test="consultationId != null" >
+        consultation_id = #{consultationId,jdbcType=VARCHAR},
+      </if>
+      <if test="consultationOpinion != null" >
+        consultation_opinion = #{consultationOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentName != null" >
+        department_name = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentNo != null" >
+        department_no = #{departmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="opinionTime != null" >
+        opinion_time = #{opinionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orgCode != null" >
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where consultation_member_id = #{consultationMemberId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.annet.model.ConsultationMember" >
+    update tbl_consultation_member
+    set consultation_id = #{consultationId,jdbcType=VARCHAR},
+      consultation_opinion = #{consultationOpinion,jdbcType=VARCHAR},
+      department_name = #{departmentName,jdbcType=VARCHAR},
+      department_no = #{departmentNo,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      opinion_time = #{opinionTime,jdbcType=TIMESTAMP},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      org_name = #{orgName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR}
+    where consultation_member_id = #{consultationMemberId,jdbcType=BIGINT}
+  </update>
+</mapper>

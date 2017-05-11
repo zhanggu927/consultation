@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.annet.mapper.OrganizationExpertLabelMapper" >
+  <resultMap id="BaseResultMap" type="com.annet.model.OrganizationExpertLabel" >
+    <id column="org_expert_label_id" property="orgExpertLabelId" jdbcType="BIGINT" />
+    <result column="expert_label_id" property="expertLabelId" jdbcType="VARCHAR" />
+    <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    org_expert_label_id, expert_label_id, org_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_organization_expert_label
+    where org_expert_label_id = #{orgExpertLabelId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_organization_expert_label
+    where org_expert_label_id = #{orgExpertLabelId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.annet.model.OrganizationExpertLabel" >
+    insert into tbl_organization_expert_label (org_expert_label_id, expert_label_id, org_code
+      )
+    values (#{orgExpertLabelId,jdbcType=BIGINT}, #{expertLabelId,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.annet.model.OrganizationExpertLabel" >
+    insert into tbl_organization_expert_label
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orgExpertLabelId != null" >
+        org_expert_label_id,
+      </if>
+      <if test="expertLabelId != null" >
+        expert_label_id,
+      </if>
+      <if test="orgCode != null" >
+        org_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orgExpertLabelId != null" >
+        #{orgExpertLabelId,jdbcType=BIGINT},
+      </if>
+      <if test="expertLabelId != null" >
+        #{expertLabelId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.annet.model.OrganizationExpertLabel" >
+    update tbl_organization_expert_label
+    <set >
+      <if test="expertLabelId != null" >
+        expert_label_id = #{expertLabelId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null" >
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where org_expert_label_id = #{orgExpertLabelId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.annet.model.OrganizationExpertLabel" >
+    update tbl_organization_expert_label
+    set expert_label_id = #{expertLabelId,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=VARCHAR}
+    where org_expert_label_id = #{orgExpertLabelId,jdbcType=BIGINT}
+  </update>
+</mapper>

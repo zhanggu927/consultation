@@ -1,0 +1,163 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>双向转诊</title>
+<link th:href="@{../css/base.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{../css/main.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{../css/page.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{../css/mCustomScrollbar/jquery.mCustomScrollbar.css}" type="text/css" rel="stylesheet"/>
+
+</head>
+
+<body>
+<div class="rms_wrapper"> 
+    	<div class="top">
+        	<div class="logo f18">安泰远程医疗系统</div>
+            <div class="user">
+            	<div class="f14">
+                	<div class="ico"></div>
+                    <span id="orgName">Alexander Pierce</span>
+                </div>
+                <a  href="#" class="arrow" id="setting-icon"><i></i></a>
+                <div class="setting-box" id="setting">
+                    <ul class="">
+                        <li><a href="#">设置</a></li>
+                        <li class="li-line"></li>
+                        <li><a href="#">退出</a></li>
+                    </ul>
+                    <div class="sanjiao"></div>
+                </div>
+            </div>
+            <!-- 顶部样式结束 -->
+        </div>
+        
+        <div class="main">
+        	<div class="left">
+            	<div class="h_logo"></div>
+                <div class="nav">
+                	<ul>
+                    	<li><a class="consultation" th:onclick="'consultationCenter();'">会诊中心</a></li>
+                        <li class=" selected"><a class="refeer" th:onclick="'referral();'">双向转诊</a></li>
+                        <li><a href="#" class="chart">统计分析</a></li>
+                        <li><a href="#" class="sys">系统管理</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 左侧导航样式结束 -->
+            
+            <div class="right">
+            	<div class="tab f18">
+                	<ul class="">
+                    	<li>
+                    		<a class="selected" href="#">待处理</a>
+                   		</li>
+                        <li>
+                        	<a href="#">已完成</a>
+                       	</li>
+                    </ul>
+                </div>
+                <div class="content">
+                	<div class="search" id="search">
+                    	<div class="filter">
+                        	<label class="describe">申请类型:</label>
+                        	<select class="qc flex2 mr10 ml10">
+                                 <option value="上转诊">上转诊</option>
+                                 <option value="下转诊">下转诊</option>
+                            </select>
+                            <p class="describe">共<span> 2 </span>条记录</p>
+                        </div>
+                        <div class="query">
+
+                            	<input placeholder="搜索" type="search" class="qc rch"/>
+                                <a href="#" id="h-butten">高级筛选</a>
+ 
+                        </div>
+                    </div>
+                	<div class="h-src" id="h-src">
+                    	<ul class="h-src-menu">
+                        	<li class="h-src-date">
+                            	<label>申请日期：</label>
+                                <input type="date"/> - <input type="date"/>
+                            </li>
+                            <li>
+                            	<label>申请医院：</label>
+                                <select>
+                                <option>1</option>
+                                </select>
+                            </li>
+                        	<li>
+                            	<label>患者姓名：</label>
+                                <input type="text"/>
+                            </li>
+                            <li>
+                            	<label>会诊类型：</label>
+                                <select>
+                                <option>1</option>
+                                </select>
+                            </li>
+                            <li class="h-src-sure"><label><a class="sure">搜索</a></label></li>
+                            <li class="h-src-sure"><label><a class="back" id="h-src-sure">返回</a></label></li>
+                        </ul>
+                    </div>
+                	 <div class="table referral">
+                     		<div class="" id="myTitle" style="height:100%;">
+                            <table class="border_color" width="100%" border="1" id="titleTable">
+                                    <tr>
+                                        <th scope="col">状态</th>
+                                        <th scope="col">流水号</th>
+                                        <th scope="col">流水号类型</th>
+                                        <th scope="col">患者姓名</th>
+                                        <th scope="col">转出医院</th>
+                                        <th scope="col">转出科室</th>
+                                        <th scope="col">转入医院</th>
+                                        <th scope="col">转入科室</th>
+                                        <th scope="col">患者类型</th>
+                                        <th scope="col">操作</th>
+                                    </tr>
+                            </table>
+                            <div class="scroll_date table_scroll_bar">
+                               <table class="border_color" width="100%" border="1" id="contentTable">
+                                   <tbody>
+                                       <tr th:each="referral : ${result.referrals}">
+                                           <td th:text="${referral.state}">
+                                           		待处理
+                                        	</td>
+                                           <td th:text="${referral.state}">1</td>
+                                           <td>上转诊</td>
+                                           <td>张*明</td>
+                                           <td>深圳市儿童医院</td>
+                                           <td>消化内科</td>
+                                           <td>北京儿童医院</td>
+                                           <td>消化内科</td>
+                                           <td>住院</td>
+                                           <td><a href="referral_details.html">查看</a></td>
+                                       </tr>
+                                       <tr>
+                                           <td>待处理</td>
+                                           <td>2</td>
+                                           <td>上转诊</td>
+                                           <td>张*明</td>
+                                           <td>深圳市儿童医院</td>
+                                           <td>消化内科</td>
+                                           <td>北京儿童医院</td>
+                                           <td>消化内科</td>
+                                           <td>住院</td>
+                                           <td><a href="referral_details.html">查看</a></td>
+                                       </tr>
+                                   </tbody>
+                               </table> 
+                            </div>
+                        </div><!-- // end of table -->
+                </div><!-- // end of content -->
+            </div>
+        </div>
+        
+		</div>
+</div>
+<script th:src="@{../js/jquery-1.8.2.min.js}" type="text/jscript"></script>
+<script th:src="@{../css/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
+<script th:src="@{../js/main.js}" type="text/jscript"></script>
+<!--[if lte IE 9]><script th:src="@{../js/selectivizr.js}"></script><![endif]-->
+</body>
+</html>

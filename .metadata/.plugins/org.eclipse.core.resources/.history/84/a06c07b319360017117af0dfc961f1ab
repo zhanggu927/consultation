@@ -1,0 +1,238 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>会诊中心</title>
+<link th:href="@{../css/base.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{../css/main.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{../css/page.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{../css/mCustomScrollbar/jquery.mCustomScrollbar.css}" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<!--远程医疗系统 （ Remote medical system ）缩写 rms -->
+<div class="rms_wrapper">
+    	<div class="top">
+        	<div class="logo f18">安泰远程医疗系统</div>
+            <div class="user">
+            	<div class="f14">
+                	<div class="ico"></div>
+                    <span id="orgName">Alexander Pierce</span>
+                </div>
+                <a  href="#" class="arrow" id="setting-icon">
+                    <i></i>
+                </a>
+                <div class="setting-box" id="setting">
+                    <ul class="">
+                        <li><a href="#">设置</a></li>
+                        <li class="li-line"></li>
+                        <li><a href="#">退出</a></li>
+                    </ul>
+                    <div class="sanjiao"></div>
+                </div>
+            </div>
+            <!-- 顶部样式结束 -->
+        </div>
+        
+        <div class="main">
+        	<div class="left">
+            	<div class="h_logo"></div>
+                <div class="nav">
+                	<ul>
+                    	<li class=" selected">
+                            <a class="consultation" th:onclick="'consultationCenter();'">会诊中心</a>
+                        </li>
+                        <li>
+                            <a class="refeer" href="referral.html">双向转诊</a>
+                        </li>
+                        <li>
+                            <a href="#" class="chart">统计分析</a>
+                        </li>
+                        <li>
+                            <a href="#" class="sys">系统管理</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 左侧导航样式结束 -->
+            <span th:text="${result.type}" id="type" style="display: none;"></span>
+            <div class="right">
+            	<div class="tab f18">
+                	<ul class="">
+                    	<li>
+                            <a th:class="${result.type}=='send'?'selected':''"  th:onclick="'jumpStatus(\'send\');'">我发起的</a>
+                        </li>
+                        <li>
+                            <a th:class="${result.type}=='receive'?'selected':''" th:onclick="'jumpStatus(\'receive\');'">我接收的</a>
+                        </li>
+                        <li>
+                            <a th:class="${result.type}=='preControl'?'selected':''" th:onclick="'jumpStatus(\'preControl\');'">待前质控</a>
+                        </li>
+                        <li>
+                            <a th:class="${result.type}=='preDeal'?'selected':''" th:onclick="'jumpStatus(\'preDeal\');'">待分配</a>
+                        </li>
+                        <li>
+                            <a th:class="${result.type}=='preHandle'?'selected':''" th:onclick="'jumpStatus(\'preHandle\');'">待发起</a>
+                        </li>
+                        <li>
+                            <a th:class="${result.type}=='processing'?'selected':''" th:onclick="'jumpStatus(\'processing\');'">进行中</a>
+                        </li>
+                        <li>
+                            <a th:class="${result.type}=='afterControl'?'selected':''" th:onclick="'jumpStatus(\'afterControl\');'">待后质控</a>
+                        </li>
+                        <li>
+                            <a th:class="${result.type}=='finish'?'selected':''" th:onclick="'jumpStatus(\'finish\');'">已完成</a>
+                        </li>
+                        <li>
+                            <a th:class="${result.type}=='refuse'?'selected':''" th:onclick="'jumpStatus(\'refuse\');'">被退回</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content">
+                	<div class="search" id="search">
+                    	<div class="choose">
+                        	<label class="describe">会诊状态:</label>
+
+                        	<select class="qc flex2 mr10 ml10">
+                                 <option value="上转诊">全部</option>
+                                 <option value="下转诊">待前质控</option>
+                                 <option value="下转诊">待分配</option>
+                                 <option value="下转诊">进行中</option>
+                                 <option value="下转诊">待后质控</option>
+                                 <option value="下转诊">已完成</option>
+                                 <option value="下转诊">被回退</option>
+                            </select>
+                            <p class="describe">共<span th:text="${result.totalSize}"> 10 </span>条记录</p>
+                        </div>
+                        <div class="query">
+                                <a href="#" id="h-butten">高级筛选</a>
+                        </div>
+                    </div>
+                	<div class="h-src" id="h-src">
+                    	<ul class="h-src-menu">
+                        	<li class="h-src-date">
+                            	<label>申请日期：</label>
+                                <input type="date"/> - <input type="date"/>
+                            </li>
+                            <li>
+                            	<label>申请医院：</label>
+                                <select>
+                                <option>1</option>
+                                </select>
+                            </li>
+                        	<li>
+                            	<label>患者姓名：</label>
+                                <input type="text"/>
+                            </li>
+                            <li>
+                            	<label>会诊类型：</label>
+                                <select>
+                                <option>1</option>
+                                </select>
+                            </li>
+                            <li class="h-src-sure"><label><a class="sure">搜索</a></label></li>
+                            <li class="h-src-sure"><label><a class="back" id="h-src-sure">返回</a></label></li>
+                        </ul>
+                    </div>
+                	 <div class="table consualtation">
+                     		<div class="" id="myTitle">
+                            <table class="border_color" width="100%" border="1" id="titleTable">
+                                <tbody>
+                                    <tr>
+                                        <th scope="col">状态</th>
+                                        <th scope="col">序号</th>
+                                        <th scope="col">患者姓名</th>
+                                        <th scope="col">申请医院</th>
+                                        <th scope="col">申请人</th>
+                                        <th scope="col">申请时间</th>
+                                        <th scope="col">会诊方式</th>
+                                        <th scope="col">会诊时间</th>
+                                        <th scope="col">会诊信息</th>
+                                        <th scope="col">操作</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                            <div class="scroll_date table_scroll_bar">
+                               <table class="border_color" width="100%" border="1" id="contentTable">
+                                   <tbody>
+                                  <!-- class="backed"-->
+                                       <tr th:each="con : ${result.cons}">
+                                           <td th:class="${con.state}=='100'?'backed':''">
+                                               <span th:if="${con.state}=='10'">待前质控</span>
+                                               <span th:if="${con.state}=='20'">待分配</span>
+                                               <span th:if="${con.state}=='30'">待发起</span>
+                                               <span th:if="${con.state}=='40'">进行中</span>
+                                               <span th:if="${con.state}=='50'">待后质控</span>
+                                               <span th:if="${con.state}=='60'">结束</span>
+                                               <span th:if="${con.state}=='100'">被驳回</span>
+                                           </td>
+                                           <td th:class="${con.state}=='100'?'backed':''" th:text="${con.patientSno}">20170217001</td>
+                                           <td th:class="${con.state}=='100'?'backed':''" th:text="${con.patientName}">张*明</td>
+                                           <td th:class="${con.state}=='100'?'backed':''" th:text="${con.orgName}">深圳市儿童医院</td>
+                                           <td th:class="${con.state}=='100'?'backed':''">
+                                               <span th:text="${con.departmentName}">消化内科</span>/
+                                               <span th:text="${con.name}">消化内科</span>
+                                           </td>
+                                           <td th:class="${con.state}=='100'?'backed':''" th:text="${#dates.format(con.applyTime,'yyyy-MM-dd HH:mm:ss')}">2017-02-17</td>
+                                           <td th:class="${con.state}=='100'?'backed':''">
+                                               <span th:if="${con.consultationType}=='1'">咨询会诊</span>
+                                               <span th:if="${con.consultationType}=='2'">预约视频会诊</span>
+                                           </td>
+                                           <td th:class="${con.state}=='100'?'backed':''" th:text="${con.appointmentTime}">2017-02-17</td>
+                                           <td th:class="${con.state}=='100'?'backed':''">
+                                               <span th:text="${con.patientDepartment}">消化内科</span>/
+                                               <span th:text="${con.patientName}">消化内科</span>
+                                           </td>
+                                           <td th:class="${con.state}=='100'?'backed':''">
+                                               <a th:onclick="'show(\'' + ${con.consultationId} + '\');'">查看</a>
+                                           </td>
+                                       </tr>
+                                    </tbody>
+                               </table>
+                                <div class="search">
+                                    <div class="choose">
+                                        <label class="describe">总共
+                                            <span id="totalPage" th:text="${result.totalPage}"></span>
+                                            页，当前在第
+                                        </label>
+                                        <select class="qc flex2 mr10 ml10" id="currentPage" th:onchange="'goPage();'">
+                                            <!--<option id="currentPages" ></option>-->
+                                        </select>
+                                        <p class="describe">页</p>
+                                    </div>
+                                    <div class="query flip">
+                                        <a th:href="'javascript:jump(\'' + 1 + '\');'">首页</a>
+                                        <a th:href="'javascript:jump(\'' + ${result.totalPage} + '\');'">尾页</a>
+                                        <a th:href="'javascript:jump(\'' + ${result.currentPage-1} + '\');'">上一页</a>
+                                        <a th:href="'javascript:jump(\'' + ${result.currentPage+1}  + '\');'">下一页</a>
+                                    </div>
+                                </div>
+                            </div>
+                  </div><!-- // end of table -->
+                  
+                </div><!-- // end of content -->
+            </div>
+        </div>
+        
+</div>
+<script th:src="@{../js/jquery-1.8.2.min.js}" type="text/jscript"></script>
+<script th:src="@{../css/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
+<script th:src="@{../js/main.js}" type="text/jscript"></script>
+<!--[if lte IE 9]><script th:src="@{../js/selectivizr.js}"></script><![endif]-->
+<script th:src="@{../js/consultation.js}" type="text/jscript"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+        var totalPage = [[${result.totalPage}]];
+        console.log(totalPage);
+        totalPage = parseInt(totalPage);
+        $("#currentPage").empty();
+        for(var i=1;i<=totalPage;i++){
+            var html = '<option id="currentPages" value="'+i+'">'+i+'</option>';
+            $("#currentPage").append(html);
+        }
+    var currentPage = [[${result.currentPage}]];
+        $("#currentPage").val(currentPage);
+    /*]]>*/
+</script>
+</body>
+</html>

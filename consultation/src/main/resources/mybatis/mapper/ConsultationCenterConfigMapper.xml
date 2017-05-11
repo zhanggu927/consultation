@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.annet.mapper.ConsultationCenterConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.annet.model.ConsultationCenterConfig" >
+    <id column="consultation_center_id" property="consultationCenterId" jdbcType="BIGINT" />
+    <result column="after_control" property="afterControl" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+    <result column="pre_control" property="preControl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    consultation_center_id, after_control, name, org_code, pre_control
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_consultation_center_config
+    where consultation_center_id = #{consultationCenterId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_consultation_center_config
+    where consultation_center_id = #{consultationCenterId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.annet.model.ConsultationCenterConfig" >
+    insert into tbl_consultation_center_config (consultation_center_id, after_control, 
+      name, org_code, pre_control
+      )
+    values (#{consultationCenterId,jdbcType=BIGINT}, #{afterControl,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, #{preControl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.annet.model.ConsultationCenterConfig" >
+    insert into tbl_consultation_center_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="consultationCenterId != null" >
+        consultation_center_id,
+      </if>
+      <if test="afterControl != null" >
+        after_control,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="orgCode != null" >
+        org_code,
+      </if>
+      <if test="preControl != null" >
+        pre_control,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="consultationCenterId != null" >
+        #{consultationCenterId,jdbcType=BIGINT},
+      </if>
+      <if test="afterControl != null" >
+        #{afterControl,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="preControl != null" >
+        #{preControl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.annet.model.ConsultationCenterConfig" >
+    update tbl_consultation_center_config
+    <set >
+      <if test="afterControl != null" >
+        after_control = #{afterControl,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null" >
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="preControl != null" >
+        pre_control = #{preControl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where consultation_center_id = #{consultationCenterId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.annet.model.ConsultationCenterConfig" >
+    update tbl_consultation_center_config
+    set after_control = #{afterControl,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      pre_control = #{preControl,jdbcType=VARCHAR}
+    where consultation_center_id = #{consultationCenterId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectByUserIdAndPassword" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"></include>
+  		from tbl_consultation_center_config 
+  			where org_code in(
+				select org_code from 
+					tbl_consultation_center_manager
+				 where user_id = #{userId} and password = #{password}
+			)
+  </select>
+</mapper>

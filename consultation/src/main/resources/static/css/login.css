@@ -1,0 +1,58 @@
+body{
+  font-family:"Microsoft YaHei UI";
+}
+.login{
+  position: fixed;
+  left:0;
+  right: 0;
+  top:0;
+  bottom: 0;
+}
+.login{
+  background: url('../images/background.jpg');
+  background-size: cover;
+}
+.background-left,.login-modal{
+  float: left;
+}
+.background-left{
+  width: 70%;
+  height: 100%;
+}
+.background-left>img{
+  width:100%;
+}
+.login-modal{
+  width: 30%;
+  height: 100%;
+}
+.login-modal .container{
+  width: 85%;
+  height: 50%;
+  margin:100px auto;
+  color: #ddd;
+  padding:60px 20px;
+  background-color:rgba(23,35,54,0.3);
+  border-radius: 8px;
+}
+#adminName,#adminPassword{
+  display:inline-block;
+  width:60%;
+  height:35px;
+  margin-top: 20px;
+  border-radius: 5px;
+  border:0;
+  outline: none;
+}
+#loginBtn{
+  display: block;
+  width:81%;
+  height:35px;
+  margin-top: 30px;
+  border-radius: 5px;
+  border:0;
+  outline: none;
+  background-color: #33B5D4;
+  color: #ddd;
+  font-weight: bold;
+}

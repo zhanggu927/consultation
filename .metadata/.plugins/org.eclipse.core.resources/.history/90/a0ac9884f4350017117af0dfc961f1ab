@@ -1,0 +1,254 @@
+package com.annet.core.service;
+
+import com.annet.core.mapper.*;
+import com.annet.core.model.*;
+import com.annet.core.util.Message;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+
+/**
+ * Created by Zhang on 2017-04-21.
+ * Description: 会诊中心service
+ */
+@Service
+public class ConsultationService {
+    @Autowired
+    private ConsultationCenterManagerMapper managerMapper;
+    @Autowired
+    private ConsultationCenterConfigMapper configMapper;
+    @Autowired
+    private ConsultationMapper consultationMapper;
+    @Autowired
+    private ConsultationMemberMapper memberMapper;
+    @Autowired
+    private OrganizationMapper organizationMapper;
+    @Autowired
+    private OrganizationExpertLabelMapper organizationExpertLabelMapper;
+    @Autowired
+    private ExpertLabelMapper labelMapper;
+    @Autowired
+    private ExpertMapper expertMapper;
+
+
+
+    /**
+     * 登录功能
+     * @param userId
+     * @param password
+     * @return
+     */
+    public Message login(String userId,String password){
+        ConsultationCenterManagerExample example = new ConsultationCenterManagerExample();
+        ConsultationCenterManagerExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userId);
+        criteria.andPasswordEqualTo(password);
+        List<ConsultationCenterManager> managers = managerMapper.selectByExample(example);
+        //List<ConsultationCenterManager> managers = managerMapper.selectByUserIdAndPassword(userId, password);
+        List<ConsultationCenterConfig> centerConfigs = new ArrayList<>();
+        if(managers.size()!=0){
+            ConsultationCenterConfigExample configExample = new ConsultationCenterConfigExample();
+            for(ConsultationCenterManager manager:managers){
+                ConsultationCenterConfigExample.Criteria configExampleCriteria = configExample.createCriteria();
+                String orgCode = manager.getOrgCode();
+                configExampleCriteria.andOrgCodeEqualTo(orgCode);
+                List<ConsultationCenterConfig> configs = configMapper.selectByExample(configExample);
+                if(configs!=null && configs.size()>0){
+                    centerConfigs.add(configs.get(0));
+                }
+                //configMapper.selectByOrgCode(manager.getOrgCode());
+            }
+        }
+        return new Message<List>(HttpStatus.OK,Message.OK,centerConfigs);
+    }
+
+    /**
+     * 发出的会诊列表
+     * @param orgCode  机构编码
+     * @param page     当前页
+     * @param size     每页显示数量
+     * @return
+     */
+    public Map<String,Object> sendList(String orgCode, int page, int size) {
+        PageHelper.startPage(page,size);
+        ConsultationExample example = new ConsultationExample();
+        ConsultationExample.Criteria criteria = example.createCriteria();
+        criteria.andOrgCodeEqualTo(orgCode);
+        List<Consultation> cons = consultationMapper.selectByExample(example);
+        PageInfo<Consultation> consPage = new PageInfo<>(cons);
+        //List<Consultation> cons = consultationMapper.selectByOrgCodePage(orgCode,page,size);
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("cons",cons);
+        resultMap.put("totalSize",consPage.getTotal());
+        resultMap.put("totalPage",consPage.getPages());
+        resultMap.put("currentPage",page);
+        resultMap.put("type","send");
+        return resultMap;
+    }
+    public Map<String,Object> receiveList(String orgCode, int page, int size) {
+        PageHelper.startPage(page,size);
+
+        List<Consultation> cons = consultationMapper.selectByReceive(orgCode);
+        PageInfo<Consultation> consPage = new PageInfo<>(cons);
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("cons",cons);
+        resultMap.put("totalSize",consPage.getTotal());
+        resultMap.put("totalPage",consPage.getPages());
+        resultMap.put("currentPage",page);
+        resultMap.put("type","receive");
+        return resultMap;
+    }
+    public Map<String,Object> search(String orgCode,String state, int page, int size) {
+        PageHelper.startPage(page,size);
+        //List<Consultation> cons = consultationMapper.selectByReceive(orgCode);
+        //根据会诊状态搜索会诊
+        List<Consultation> cons = consultationMapper.selectByState(orgCode, state);
+        PageInfo<Consultation> consPage = new PageInfo<>(cons);
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("cons",cons);
+        resultMap.put("totalSize",consPage.getTotal());
+        resultMap.put("totalPage",consPage.getPages());
+        resultMap.put("currentPage",page);
+        if("10".equals(state))
+            resultMap.put("type","preControl");
+        if("20".equals(state)){
+            resultMap.put("type","preDeal");
+        }
+        if("30".equals(state)){
+            resultMap.put("type","preHandle");
+        }
+        if("40".equals(state)){
+            resultMap.put("type","processing");
+        }
+        if("50".equals(state)){
+            resultMap.put("type","afterControl");
+        }
+        if("60".equals(state)){
+            resultMap.put("type","finish");
+        }
+        if("100".equals(state)){
+            resultMap.put("type","refuse");
+        }
+        return resultMap;
+    }
+    public Map<String,Object> show(String orgCode,String conId){
+        ConsultationExample example = new ConsultationExample();
+        ConsultationExample.Criteria criteria = example.createCriteria();
+        criteria.andOrgCodeEqualTo(orgCode);
+        criteria.andConsultationIdEqualTo(Long.parseLong(conId));
+        List<Consultation> consultations = consultationMapper.selectByExample(example);
+        ConsultationMemberExample memberExample = new ConsultationMemberExample();
+        ConsultationMemberExample.Criteria memberCriteria = memberExample.createCriteria();
+        memberCriteria.andConsultationIdEqualTo(conId);
+        memberCriteria.andOrgCodeEqualTo(orgCode);
+        List<ConsultationMember> members = memberMapper.selectByExample(memberExample);
+        Map<String,Object> map = new HashMap<>();
+        if(consultations!=null && consultations.size()>0){
+            map.put("con",consultations.get(0));
+        }
+        map.put("members",members);
+        return map;
+    }
+
+    /**
+     * 获取所有医院
+     * @return
+     */
+    public List<Organization> getHospital(String consultationId) {
+        Consultation consultation = consultationMapper.selectByPrimaryKey(Long.parseLong(consultationId));
+        consultation.setState("20");
+        consultationMapper.updateByPrimaryKey(consultation);
+        OrganizationExample example = new OrganizationExample();
+        List<Organization> orgs = organizationMapper.selectByExample(example);
+        return orgs;
+    }
+
+    /**
+     * 修改会诊状态
+     * @param consultationId
+     * @param state
+     * @return
+     */
+    public String changeStatus(String consultationId, int state) {
+        Consultation consultation = consultationMapper.selectByPrimaryKey(Long.parseLong(consultationId));
+        consultation.setState(""+state);
+        consultationMapper.updateByPrimaryKey(consultation);
+        return "success";
+    }
+    public String initData(){
+        for(int i=1;i<=1000;i++){
+            Consultation con = new Consultation();
+            con.setApplyTime(new Date());
+            con.setAppointmentTime("2017-04-15 14:14:14");
+            con.setConsultationId(Long.parseLong(""+(i+1)));
+            con.setConsultationType(""+(i%2+1));
+            con.setDepartmentName("测试科室"+i);
+            con.setDepartmentNo("123");
+            con.setDiagnosis("你已经疯了吗");
+            con.setEndTime(new Date());
+            con.setMemberCount("3");
+            con.setName("申请人姓名"+i);
+            con.setOrgCode("12345");
+            con.setOrgName("测试医院呢");
+            con.setPatientAge("18");
+            con.setPatientBedNo("123");
+            con.setPatientDepartment("病人科室"+i);
+            con.setPatientDepartmentCode("123");
+            con.setPatientGender(""+(i%2+1));
+            con.setPatientHospital("病人医院");
+            con.setPatientHospitalCode("12345"+(i%2));
+            con.setPatientName("病人"+i);
+            con.setPatientSno("12345"+i);
+            con.setPatientSnoType(""+(i%2+1));
+            con.setPhone("12345678901");
+            con.setPurpose("测试母的");
+            con.setRemark("备注？");
+            con.setRole("zhicheng?");
+            con.setSessionId("121324");
+            con.setState((i%5+1)*10+"");
+            con.setTitle("ce shi biao ti "+i);
+            con.setToken("13243535325");
+            con.setUserId("12345");
+            consultationMapper.insert(con);
+        }
+        return "success";
+    }
+
+    /**
+     * 驳回会诊
+     * @param consultationId
+     * @return
+     */
+    public String refuse(String consultationId) {
+        Consultation consultation = consultationMapper.selectByPrimaryKey(Long.parseLong(consultationId));
+        consultation.setState("100");
+        consultationMapper.updateByPrimaryKey(consultation);
+        return "success";
+    }
+
+    /**
+     * 获取专家标签
+     * @param applyOrgCode  申请人orgCode
+     * @param orgCode       会诊中心orgCode
+     * @return
+     */
+    public List<ExpertLabel> getExpertLabels(String applyOrgCode, String orgCode) {
+        List<String> ids = organizationExpertLabelMapper.selectExperts(applyOrgCode, orgCode);
+        List<ExpertLabel> expertLabels = labelMapper.selectByIds(ids);
+        return expertLabels;
+    }
+
+    /**
+     * 获取指定标签下的所有专家
+     * @param expertLabelId
+     * @return
+     */
+    public List<Expert> getExperts(String expertLabelId) {
+        List<Expert> experts = expertMapper.selectByExpertLabelId(expertLabelId);
+        return experts;
+    }
+}

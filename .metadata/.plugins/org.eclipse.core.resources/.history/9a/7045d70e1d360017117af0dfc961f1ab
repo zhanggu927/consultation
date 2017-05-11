@@ -1,0 +1,90 @@
+package com.annet.service;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.annet.mapper.ReferralMapper;
+import com.annet.mapper.ReferralMemberMapper;
+import com.annet.model.Referral;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
+@Service
+@Transactional
+public class ReferralService {
+	
+	@Autowired
+	private ReferralMapper referralMapper;
+	
+	@Autowired
+	private ReferralMemberMapper referralMemberMapper;
+	
+	/**
+	 * 初始化数据，测试用
+	 * @return
+	 */
+	public String initData() {
+		for(int i=1;i<=1000;i++){
+			Referral referral = new Referral();
+			referral.setApplyDepartmentName("申请科室"+i);
+			referral.setApplyDepartmentNo(i+"");
+			referral.setApplyName("申请人名字"+i);
+			referral.setApplyOrgCode("12345");
+			referral.setApplyOrgName("测试医院");
+			referral.setApplyTime(new Date());
+			referral.setApplyUserId("10000"+(i%5));
+			referral.setAppointmentTime("2017-05-12 14:14:14");
+			referral.setDiagnosis("初步诊断");
+			referral.setMemberCount("3");
+			referral.setPatientAge("4"+(i%4));
+			referral.setPatientBedNo("2"+(i%4));
+			referral.setPatientDepartmentName("病人科室名"+(i%4));
+			referral.setPatientDepartmentNo("3"+(i%3));
+			referral.setPatientGender(""+(i%2+1));
+			referral.setPatientName("病人姓名"+(i%8));
+			referral.setPatientOrgCode("1234"+i%8);
+			referral.setPatientOrgName("测试医院"+(i%4));
+			referral.setPatientSno("123456"+i);
+			referral.setPatientSnoType("1");
+			referral.setReferralDepartmentName("转诊科室名"+i);
+			referral.setReferralDepartmentNo("132"+i);
+			referral.setReferralOrgCode("12345"+(i%8));
+			referral.setReferralOrgName("转诊医院"+(i%4));
+			referral.setReferralPurpose("转诊目的");
+			referral.setReferralType(""+(i%2+1));
+			referral.setRemark("12345");
+			referral.setSessionId("1324253532");
+			referral.setState(i%5+1+"");
+			referral.setTitle("转诊标题"+(i%8));
+			referral.setToken("qsrr");
+			referral.setTransCode("4325"+i);
+            referralMapper.insert(referral);
+        }
+        return "success";
+	}
+
+	public Map<String, Object> sendList(String orgCode, int page, int size) {
+		PageHelper.startPage(page,size);
+		List<Referral> referrals = referralMapper.selectByApplyOrgCode(orgCode);
+        PageInfo<Referral> referralsPage = new PageInfo<>(referrals);
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("referrals",referrals);
+        resultMap.put("totalSize",referralsPage.getTotal());
+        resultMap.put("totalPage",referralsPage.getPages());
+        resultMap.put("currentPage",page);
+        resultMap.put("type","send");
+        return resultMap;
+	}
+
+	public Map<String, Object> show(String orgCode, String referralId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+}

@@ -1,0 +1,30 @@
+package com.annet.core.mapper;
+
+import com.annet.core.model.ReferralAttachment;
+import com.annet.core.model.ReferralAttachmentExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface ReferralAttachmentMapper {
+    int countByExample(ReferralAttachmentExample example);
+
+    int deleteByExample(ReferralAttachmentExample example);
+
+    int deleteByPrimaryKey(Long referralAttachmentId);
+
+    int insert(ReferralAttachment record);
+
+    int insertSelective(ReferralAttachment record);
+
+    List<ReferralAttachment> selectByExample(ReferralAttachmentExample example);
+
+    ReferralAttachment selectByPrimaryKey(Long referralAttachmentId);
+
+    int updateByExampleSelective(@Param("record") ReferralAttachment record, @Param("example") ReferralAttachmentExample example);
+
+    int updateByExample(@Param("record") ReferralAttachment record, @Param("example") ReferralAttachmentExample example);
+
+    int updateByPrimaryKeySelective(ReferralAttachment record);
+
+    int updateByPrimaryKey(ReferralAttachment record);
+}

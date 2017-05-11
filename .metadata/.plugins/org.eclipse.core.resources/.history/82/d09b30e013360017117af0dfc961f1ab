@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.annet.mapper.ConsultationMapper" >
+  <resultMap id="BaseResultMap" type="com.annet.model.Consultation" >
+    <id column="consultation_id" property="consultationId" jdbcType="BIGINT" />
+    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="appointment_time" property="appointmentTime" jdbcType="VARCHAR" />
+    <result column="consultation_type" property="consultationType" jdbcType="VARCHAR" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="department_no" property="departmentNo" jdbcType="VARCHAR" />
+    <result column="diagnosis" property="diagnosis" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="member_count" property="memberCount" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="patient_age" property="patientAge" jdbcType="VARCHAR" />
+    <result column="patient_bed_no" property="patientBedNo" jdbcType="VARCHAR" />
+    <result column="patient_department" property="patientDepartment" jdbcType="VARCHAR" />
+    <result column="patient_department_code" property="patientDepartmentCode" jdbcType="VARCHAR" />
+    <result column="patient_gender" property="patientGender" jdbcType="VARCHAR" />
+    <result column="patient_hospital" property="patientHospital" jdbcType="VARCHAR" />
+    <result column="patient_hospital_code" property="patientHospitalCode" jdbcType="VARCHAR" />
+    <result column="patient_name" property="patientName" jdbcType="VARCHAR" />
+    <result column="patient_sno" property="patientSno" jdbcType="VARCHAR" />
+    <result column="patient_sno_type" property="patientSnoType" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="purpose" property="purpose" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="VARCHAR" />
+    <result column="session_id" property="sessionId" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="token" property="token" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    consultation_id, apply_time, appointment_time, consultation_type, department_name, 
+    department_no, diagnosis, end_time, member_count, name, org_code, org_name, patient_age, 
+    patient_bed_no, patient_department, patient_department_code, patient_gender, patient_hospital, 
+    patient_hospital_code, patient_name, patient_sno, patient_sno_type, phone, purpose, 
+    remark, role, session_id, state, title, token, user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_consultation
+    where consultation_id = #{consultationId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_consultation
+    where consultation_id = #{consultationId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.annet.model.Consultation" >
+    insert into tbl_consultation (consultation_id, apply_time, appointment_time, 
+      consultation_type, department_name, department_no, 
+      diagnosis, end_time, member_count, 
+      name, org_code, org_name, 
+      patient_age, patient_bed_no, patient_department, 
+      patient_department_code, patient_gender, patient_hospital, 
+      patient_hospital_code, patient_name, patient_sno, 
+      patient_sno_type, phone, purpose, 
+      remark, role, session_id, 
+      state, title, token, 
+      user_id)
+    values (#{consultationId,jdbcType=BIGINT}, #{applyTime,jdbcType=TIMESTAMP}, #{appointmentTime,jdbcType=VARCHAR}, 
+      #{consultationType,jdbcType=VARCHAR}, #{departmentName,jdbcType=VARCHAR}, #{departmentNo,jdbcType=VARCHAR}, 
+      #{diagnosis,jdbcType=VARCHAR}, #{endTime,jdbcType=TIMESTAMP}, #{memberCount,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, 
+      #{patientAge,jdbcType=VARCHAR}, #{patientBedNo,jdbcType=VARCHAR}, #{patientDepartment,jdbcType=VARCHAR}, 
+      #{patientDepartmentCode,jdbcType=VARCHAR}, #{patientGender,jdbcType=VARCHAR}, #{patientHospital,jdbcType=VARCHAR}, 
+      #{patientHospitalCode,jdbcType=VARCHAR}, #{patientName,jdbcType=VARCHAR}, #{patientSno,jdbcType=VARCHAR}, 
+      #{patientSnoType,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{purpose,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.annet.model.Consultation" >
+    insert into tbl_consultation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="consultationId != null" >
+        consultation_id,
+      </if>
+      <if test="applyTime != null" >
+        apply_time,
+      </if>
+      <if test="appointmentTime != null" >
+        appointment_time,
+      </if>
+      <if test="consultationType != null" >
+        consultation_type,
+      </if>
+      <if test="departmentName != null" >
+        department_name,
+      </if>
+      <if test="departmentNo != null" >
+        department_no,
+      </if>
+      <if test="diagnosis != null" >
+        diagnosis,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="memberCount != null" >
+        member_count,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="orgCode != null" >
+        org_code,
+      </if>
+      <if test="orgName != null" >
+        org_name,
+      </if>
+      <if test="patientAge != null" >
+        patient_age,
+      </if>
+      <if test="patientBedNo != null" >
+        patient_bed_no,
+      </if>
+      <if test="patientDepartment != null" >
+        patient_department,
+      </if>
+      <if test="patientDepartmentCode != null" >
+        patient_department_code,
+      </if>
+      <if test="patientGender != null" >
+        patient_gender,
+      </if>
+      <if test="patientHospital != null" >
+        patient_hospital,
+      </if>
+      <if test="patientHospitalCode != null" >
+        patient_hospital_code,
+      </if>
+      <if test="patientName != null" >
+        patient_name,
+      </if>
+      <if test="patientSno != null" >
+        patient_sno,
+      </if>
+      <if test="patientSnoType != null" >
+        patient_sno_type,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="purpose != null" >
+        purpose,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="sessionId != null" >
+        session_id,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="token != null" >
+        token,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="consultationId != null" >
+        #{consultationId,jdbcType=BIGINT},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appointmentTime != null" >
+        #{appointmentTime,jdbcType=VARCHAR},
+      </if>
+      <if test="consultationType != null" >
+        #{consultationType,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentNo != null" >
+        #{departmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="diagnosis != null" >
+        #{diagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberCount != null" >
+        #{memberCount,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="patientAge != null" >
+        #{patientAge,jdbcType=VARCHAR},
+      </if>
+      <if test="patientBedNo != null" >
+        #{patientBedNo,jdbcType=VARCHAR},
+      </if>
+      <if test="patientDepartment != null" >
+        #{patientDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="patientDepartmentCode != null" >
+        #{patientDepartmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="patientGender != null" >
+        #{patientGender,jdbcType=VARCHAR},
+      </if>
+      <if test="patientHospital != null" >
+        #{patientHospital,jdbcType=VARCHAR},
+      </if>
+      <if test="patientHospitalCode != null" >
+        #{patientHospitalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="patientName != null" >
+        #{patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="patientSno != null" >
+        #{patientSno,jdbcType=VARCHAR},
+      </if>
+      <if test="patientSnoType != null" >
+        #{patientSnoType,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.annet.model.Consultation" >
+    update tbl_consultation
+    <set >
+      <if test="applyTime != null" >
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appointmentTime != null" >
+        appointment_time = #{appointmentTime,jdbcType=VARCHAR},
+      </if>
+      <if test="consultationType != null" >
+        consultation_type = #{consultationType,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentName != null" >
+        department_name = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentNo != null" >
+        department_no = #{departmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="diagnosis != null" >
+        diagnosis = #{diagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberCount != null" >
+        member_count = #{memberCount,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null" >
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="patientAge != null" >
+        patient_age = #{patientAge,jdbcType=VARCHAR},
+      </if>
+      <if test="patientBedNo != null" >
+        patient_bed_no = #{patientBedNo,jdbcType=VARCHAR},
+      </if>
+      <if test="patientDepartment != null" >
+        patient_department = #{patientDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="patientDepartmentCode != null" >
+        patient_department_code = #{patientDepartmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="patientGender != null" >
+        patient_gender = #{patientGender,jdbcType=VARCHAR},
+      </if>
+      <if test="patientHospital != null" >
+        patient_hospital = #{patientHospital,jdbcType=VARCHAR},
+      </if>
+      <if test="patientHospitalCode != null" >
+        patient_hospital_code = #{patientHospitalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="patientName != null" >
+        patient_name = #{patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="patientSno != null" >
+        patient_sno = #{patientSno,jdbcType=VARCHAR},
+      </if>
+      <if test="patientSnoType != null" >
+        patient_sno_type = #{patientSnoType,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        purpose = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        session_id = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where consultation_id = #{consultationId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.annet.model.Consultation" >
+    update tbl_consultation
+    set apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      appointment_time = #{appointmentTime,jdbcType=VARCHAR},
+      consultation_type = #{consultationType,jdbcType=VARCHAR},
+      department_name = #{departmentName,jdbcType=VARCHAR},
+      department_no = #{departmentNo,jdbcType=VARCHAR},
+      diagnosis = #{diagnosis,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      member_count = #{memberCount,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      org_name = #{orgName,jdbcType=VARCHAR},
+      patient_age = #{patientAge,jdbcType=VARCHAR},
+      patient_bed_no = #{patientBedNo,jdbcType=VARCHAR},
+      patient_department = #{patientDepartment,jdbcType=VARCHAR},
+      patient_department_code = #{patientDepartmentCode,jdbcType=VARCHAR},
+      patient_gender = #{patientGender,jdbcType=VARCHAR},
+      patient_hospital = #{patientHospital,jdbcType=VARCHAR},
+      patient_hospital_code = #{patientHospitalCode,jdbcType=VARCHAR},
+      patient_name = #{patientName,jdbcType=VARCHAR},
+      patient_sno = #{patientSno,jdbcType=VARCHAR},
+      patient_sno_type = #{patientSnoType,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      purpose = #{purpose,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR},
+      session_id = #{sessionId,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR}
+    where consultation_id = #{consultationId,jdbcType=BIGINT}
+  </update>
+  <!--  该机构发出的会诊列表  -->
+  <select id="selectByOrgCode" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"></include>
+  		from tbl_consultation
+  		where org_code = #{orgCode}
+  </select>
+  
+  <!-- 该机构收到的会诊列表 -->
+  <select id="selectByReceive" resultMap="BaseResultMap">
+      SELECT
+      <include refid="Base_Column_List" />
+    FROM
+        tbl_consultation
+    WHERE
+        consultation_id IN (
+            SELECT
+                consultation_id
+            FROM
+                tbl_consultation_member
+            WHERE
+                org_code = #{orgCode}
+            GROUP BY
+                consultation_id
+        )
+  </select>
+</mapper>

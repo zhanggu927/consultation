@@ -1,0 +1,19 @@
+package com.annet.mapper;
+
+
+
+import com.annet.model.ConsultationCenterConfig;
+
+public interface ConsultationCenterConfigMapper {
+    int deleteByPrimaryKey(Long consultationCenterId);
+
+    int insert(ConsultationCenterConfig record);
+
+    int insertSelective(ConsultationCenterConfig record);
+
+    ConsultationCenterConfig selectByPrimaryKey(Long consultationCenterId);
+
+    int updateByPrimaryKeySelective(ConsultationCenterConfig record);
+
+    int updateByPrimaryKey(ConsultationCenterConfig record);
+}

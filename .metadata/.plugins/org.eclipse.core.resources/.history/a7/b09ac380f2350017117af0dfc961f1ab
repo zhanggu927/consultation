@@ -1,0 +1,24 @@
+package com.annet.core.controller;
+
+import com.annet.core.service.ConsultationService;
+import com.annet.core.util.Message;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+/**
+ * Created by zhang on 2017-04-21.
+ * Description: 登录controller
+ */
+@Controller
+public class LoginController {
+    @Autowired
+    private ConsultationService consultationService;
+    @RequestMapping("/login")
+    @ResponseBody
+    public Message login(String userId,String password){
+        Message message = consultationService.login(userId, password);
+        return message;
+    }
+}

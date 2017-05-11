@@ -1,0 +1,20 @@
+package com.annet.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.annet.mapper.ReferralMapper;
+import com.annet.mapper.ReferralMemberMapper;
+
+@Service
+@Transactional
+public class ReferralService {
+	
+	@Autowired
+	private ReferralMapper referralMapper;
+	
+	@Autowired
+	private ReferralMemberMapper referralMemberMapper;
+	
+}

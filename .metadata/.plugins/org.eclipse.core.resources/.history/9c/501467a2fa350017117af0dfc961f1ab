@@ -1,0 +1,30 @@
+package com.annet.core.mapper;
+
+import com.annet.core.model.OrganizationConfig;
+import com.annet.core.model.OrganizationConfigExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface OrganizationConfigMapper {
+    int countByExample(OrganizationConfigExample example);
+
+    int deleteByExample(OrganizationConfigExample example);
+
+    int deleteByPrimaryKey(Long orgConfigId);
+
+    int insert(OrganizationConfig record);
+
+    int insertSelective(OrganizationConfig record);
+
+    List<OrganizationConfig> selectByExample(OrganizationConfigExample example);
+
+    OrganizationConfig selectByPrimaryKey(Long orgConfigId);
+
+    int updateByExampleSelective(@Param("record") OrganizationConfig record, @Param("example") OrganizationConfigExample example);
+
+    int updateByExample(@Param("record") OrganizationConfig record, @Param("example") OrganizationConfigExample example);
+
+    int updateByPrimaryKeySelective(OrganizationConfig record);
+
+    int updateByPrimaryKey(OrganizationConfig record);
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<!-- scan,当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true -->
+<!-- scanPeriod,设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟 -->
+<!-- debug,当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false -->
+<configuration debug="false" scan="true" scanPeriod="60000">
+  <!-- contextName ，设置日志上下文名称，可以通过%contextName来打印日志上下文名称 -->
+  <contextName>consultation</contextName>
+  
+  <!-- property可以用来设置变量 name，用于${name}访问的key value，用于${name}访问的value
+  <property name="log.path" value="F:\\logback.log" />-->
+  
+  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <Pattern>.%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %n
+      </Pattern>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+  </appender>
+
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${logFile}</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${logFile}.%d.zip</fileNamePattern>
+      <maxHistory>5</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>[%date] [%level] %msg [%file:%line] [%logger{100}] [%thread] [AspLink-${project.version}]%n</pattern>
+    </encoder>
+  </appender>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>[Annet-${project.version}] [%level] %msg [%file:%line] [%logger{100}]%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="liquibase" level="INFO" />
+  <logger name="com.annet.core.mapper" level="DEBUG" />
+  <logger name="com.annet.core.mapper">
+    <level value="TRACE"/>
+  </logger>
+
+  <root level="INFO">
+    <appender-ref ref="FILE" />
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>

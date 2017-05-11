@@ -1,0 +1,17 @@
+package com.annet.mapper;
+
+import com.annet.model.ConsultationCenterManager;
+
+public interface ConsultationCenterManagerMapper {
+    int deleteByPrimaryKey(Long consultationCenterManagerId);
+
+    int insert(ConsultationCenterManager record);
+
+    int insertSelective(ConsultationCenterManager record);
+
+    ConsultationCenterManager selectByPrimaryKey(Long consultationCenterManagerId);
+
+    int updateByPrimaryKeySelective(ConsultationCenterManager record);
+
+    int updateByPrimaryKey(ConsultationCenterManager record);
+}

@@ -1,0 +1,13 @@
+package com.annet.controller;
+
+import org.springframework.stereotype.Controller;
+
+/**
+ * 转诊的Controller
+ * @author Zhang
+ *
+ */
+@Controller
+public class ReferralController {
+
+}

@@ -1,0 +1,10 @@
+package com.annet.controller;
+
+/**
+ * 登录相关的Controller
+ * @author Administrator
+ *
+ */
+public class LoginController {
+
+}

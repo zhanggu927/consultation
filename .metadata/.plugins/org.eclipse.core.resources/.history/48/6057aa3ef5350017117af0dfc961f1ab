@@ -1,0 +1,42 @@
+package com.annet.core.mapper;
+
+import com.annet.core.model.ConsultationCenterManager;
+import com.annet.core.model.ConsultationCenterManagerExample;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
+
+public interface ConsultationCenterManagerMapper {
+    int countByExample(ConsultationCenterManagerExample example);
+
+    int deleteByExample(ConsultationCenterManagerExample example);
+
+    int deleteByPrimaryKey(Long consultationCenterManagerId);
+
+    int insert(ConsultationCenterManager record);
+
+    int insertSelective(ConsultationCenterManager record);
+
+    List<ConsultationCenterManager> selectByExample(ConsultationCenterManagerExample example);
+
+    ConsultationCenterManager selectByPrimaryKey(Long consultationCenterManagerId);
+
+    int updateByExampleSelective(@Param("record") ConsultationCenterManager record, @Param("example") ConsultationCenterManagerExample example);
+
+    int updateByExample(@Param("record") ConsultationCenterManager record, @Param("example") ConsultationCenterManagerExample example);
+
+    int updateByPrimaryKeySelective(ConsultationCenterManager record);
+
+    int updateByPrimaryKey(ConsultationCenterManager record);
+    
+    /**
+     * 根据userId和password查询会诊中心管理列表
+     * @param userId
+     * @param password
+     * @return
+     */
+    List<String> selectByUserIdAndPassWord(@RequestParam("userId") String userId, @RequestParam("password") String password);
+    
+}

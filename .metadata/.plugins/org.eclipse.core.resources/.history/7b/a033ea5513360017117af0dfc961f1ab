@@ -1,0 +1,83 @@
+package com.annet.service;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.annet.mapper.ConsultationMapper;
+import com.annet.model.Consultation;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
+@Service
+@Transactional
+public class ConsultationService {
+	@Autowired
+	private ConsultationMapper consultationMapper;
+	
+	 /**
+     * 发出的会诊列表
+     * @param orgCode  机构编码
+     * @param page     当前页
+     * @param size     每页显示数量
+     * @return
+     */
+    public Map<String,Object> sendList(String orgCode, int page, int size) {
+        PageHelper.startPage(page,size);
+        List<Consultation> consultations = consultationMapper.selectByOrgCode(orgCode);
+        PageInfo<Consultation> consPage = new PageInfo<>(consultations);
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("cons",consultations);
+        resultMap.put("totalSize",consPage.getTotal());
+        resultMap.put("totalPage",consPage.getPages());
+        resultMap.put("currentPage",page);
+        resultMap.put("type","send");
+        return resultMap;
+    }
+    
+    
+    
+    public String initData(){
+        for(int i=1;i<=1000;i++){
+            Consultation con = new Consultation();
+            con.setApplyTime(new Date());
+            con.setAppointmentTime("2017-04-15 14:14:14");
+            con.setConsultationId(Long.parseLong(""+(i+1)));
+            con.setConsultationType(""+(i%2+1));
+            con.setDepartmentName("测试科室"+i);
+            con.setDepartmentNo("123");
+            con.setDiagnosis("你已经疯了吗");
+            con.setEndTime(new Date());
+            con.setMemberCount("3");
+            con.setName("申请人姓名"+i);
+            con.setOrgCode("12345");
+            con.setOrgName("测试医院呢");
+            con.setPatientAge("18");
+            con.setPatientBedNo("123");
+            con.setPatientDepartment("病人科室"+i);
+            con.setPatientDepartmentCode("123");
+            con.setPatientGender(""+(i%2+1));
+            con.setPatientHospital("病人医院");
+            con.setPatientHospitalCode("12345"+(i%2));
+            con.setPatientName("病人"+i);
+            con.setPatientSno("12345"+i);
+            con.setPatientSnoType(""+(i%2+1));
+            con.setPhone("12345678901");
+            con.setPurpose("测试母的");
+            con.setRemark("备注？");
+            con.setRole("zhicheng?");
+            con.setSessionId("121324");
+            con.setState((i%5+1)*10+"");
+            con.setTitle("ce shi biao ti "+i);
+            con.setToken("13243535325");
+            con.setUserId("12345");
+            consultationMapper.insert(con);
+        }
+        return "success";
+    }
+}

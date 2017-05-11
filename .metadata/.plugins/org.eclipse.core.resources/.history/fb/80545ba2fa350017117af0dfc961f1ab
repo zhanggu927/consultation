@@ -1,0 +1,31 @@
+package com.annet.core.mapper;
+
+import com.annet.core.model.OrganizationExpertLabel;
+import com.annet.core.model.OrganizationExpertLabelExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface OrganizationExpertLabelMapper {
+    int countByExample(OrganizationExpertLabelExample example);
+
+    int deleteByExample(OrganizationExpertLabelExample example);
+
+    int deleteByPrimaryKey(Long orgExpertLabelId);
+
+    int insert(OrganizationExpertLabel record);
+
+    int insertSelective(OrganizationExpertLabel record);
+
+    List<OrganizationExpertLabel> selectByExample(OrganizationExpertLabelExample example);
+
+    OrganizationExpertLabel selectByPrimaryKey(Long orgExpertLabelId);
+
+    int updateByExampleSelective(@Param("record") OrganizationExpertLabel record, @Param("example") OrganizationExpertLabelExample example);
+
+    int updateByExample(@Param("record") OrganizationExpertLabel record, @Param("example") OrganizationExpertLabelExample example);
+
+    int updateByPrimaryKeySelective(OrganizationExpertLabel record);
+
+    int updateByPrimaryKey(OrganizationExpertLabel record);
+    List<String> selectExperts(@Param("applyOrgCode")String applyOrgCode,@Param("orgCode")String orgCode);
+}

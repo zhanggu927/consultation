@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+   <meta charset="UTF-8"/>
+   <title>管理员登录页面</title>
+   <link rel="stylesheet" th:href="@{../css/login.css}"/>
+   <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="login">
+   <div class="background-left">
+      <img th:src="@{../images/background02.png}"/>
+   </div>
+   <div class="login-modal">
+      <div class="container">
+         <h2>管理员登录</h2>
+         <hr/>
+         <div class="message" style="color: red;display: none;" id="message"></div>
+         <form  method="post" th:action="@{/login}" id="loginForm">
+            <label for="adminName">登录用户：</label>
+            <input type="text" id="adminName" name = "userId"/><br/>
+            <label for="adminPassword">登录密码：</label>
+            <input type="password"  id="adminPassword" name = "password"/><br/>
+            <button type="button" id="loginBtn">登&nbsp;录</button>
+         </form>
+      </div>
+   </div>
+</div>
+<!--  选择会诊中心模态框 （Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-hidden="true">×
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+               请选择要登陆的会诊中心
+            </h4>
+         </div>
+         <div class="modal-body">
+            <div class="form-group">
+               <label class="col-sm-3 control-label">会诊中心：</label>
+               <div class="col-sm-4">
+                  <select id="centerList" name="centerList" class="selectpicker show-tick form-control"  data-live-search="false">
+                     <option value="0">苹果</option>
+                  </select>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default"
+                    data-dismiss="modal">关闭
+            </button>
+            <button type="button" id="confirm" class="btn btn-primary">
+               确定
+            </button>
+         </div>
+      </div>
+   </div>
+</div>
+
+<script th:src="@{/js/jquery-3.1.1.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/login.js}"></script>
+</body>
+</html>

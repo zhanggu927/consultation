@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.annet.core.mapper.ConsultationAttachmentMapper" >
+  <resultMap id="BaseResultMap" type="com.annet.core.model.ConsultationAttachment" >
+    <id column="consultation_attachment_id" property="consultationAttachmentId" jdbcType="BIGINT" />
+    <result column="attachment_attribute" property="attachmentAttribute" jdbcType="VARCHAR" />
+    <result column="attachment_owner" property="attachmentOwner" jdbcType="VARCHAR" />
+    <result column="attachment_type" property="attachmentType" jdbcType="VARCHAR" />
+    <result column="attachment_url" property="attachmentUrl" jdbcType="VARCHAR" />
+    <result column="consultation_id" property="consultationId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    consultation_attachment_id, attachment_attribute, attachment_owner, attachment_type, 
+    attachment_url, consultation_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.annet.core.model.ConsultationAttachmentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_consultation_attachment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_consultation_attachment
+    where consultation_attachment_id = #{consultationAttachmentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_consultation_attachment
+    where consultation_attachment_id = #{consultationAttachmentId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.annet.core.model.ConsultationAttachmentExample" >
+    delete from tbl_consultation_attachment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.annet.core.model.ConsultationAttachment" >
+    insert into tbl_consultation_attachment (consultation_attachment_id, attachment_attribute, 
+      attachment_owner, attachment_type, attachment_url, 
+      consultation_id)
+    values (#{consultationAttachmentId,jdbcType=BIGINT}, #{attachmentAttribute,jdbcType=VARCHAR}, 
+      #{attachmentOwner,jdbcType=VARCHAR}, #{attachmentType,jdbcType=VARCHAR}, #{attachmentUrl,jdbcType=VARCHAR}, 
+      #{consultationId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.annet.core.model.ConsultationAttachment" >
+    insert into tbl_consultation_attachment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="consultationAttachmentId != null" >
+        consultation_attachment_id,
+      </if>
+      <if test="attachmentAttribute != null" >
+        attachment_attribute,
+      </if>
+      <if test="attachmentOwner != null" >
+        attachment_owner,
+      </if>
+      <if test="attachmentType != null" >
+        attachment_type,
+      </if>
+      <if test="attachmentUrl != null" >
+        attachment_url,
+      </if>
+      <if test="consultationId != null" >
+        consultation_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="consultationAttachmentId != null" >
+        #{consultationAttachmentId,jdbcType=BIGINT},
+      </if>
+      <if test="attachmentAttribute != null" >
+        #{attachmentAttribute,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentOwner != null" >
+        #{attachmentOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentType != null" >
+        #{attachmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentUrl != null" >
+        #{attachmentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="consultationId != null" >
+        #{consultationId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.annet.core.model.ConsultationAttachmentExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_consultation_attachment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_consultation_attachment
+    <set >
+      <if test="record.consultationAttachmentId != null" >
+        consultation_attachment_id = #{record.consultationAttachmentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.attachmentAttribute != null" >
+        attachment_attribute = #{record.attachmentAttribute,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachmentOwner != null" >
+        attachment_owner = #{record.attachmentOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachmentType != null" >
+        attachment_type = #{record.attachmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachmentUrl != null" >
+        attachment_url = #{record.attachmentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consultationId != null" >
+        consultation_id = #{record.consultationId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_consultation_attachment
+    set consultation_attachment_id = #{record.consultationAttachmentId,jdbcType=BIGINT},
+      attachment_attribute = #{record.attachmentAttribute,jdbcType=VARCHAR},
+      attachment_owner = #{record.attachmentOwner,jdbcType=VARCHAR},
+      attachment_type = #{record.attachmentType,jdbcType=VARCHAR},
+      attachment_url = #{record.attachmentUrl,jdbcType=VARCHAR},
+      consultation_id = #{record.consultationId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.annet.core.model.ConsultationAttachment" >
+    update tbl_consultation_attachment
+    <set >
+      <if test="attachmentAttribute != null" >
+        attachment_attribute = #{attachmentAttribute,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentOwner != null" >
+        attachment_owner = #{attachmentOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentType != null" >
+        attachment_type = #{attachmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentUrl != null" >
+        attachment_url = #{attachmentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="consultationId != null" >
+        consultation_id = #{consultationId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where consultation_attachment_id = #{consultationAttachmentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.annet.core.model.ConsultationAttachment" >
+    update tbl_consultation_attachment
+    set attachment_attribute = #{attachmentAttribute,jdbcType=VARCHAR},
+      attachment_owner = #{attachmentOwner,jdbcType=VARCHAR},
+      attachment_type = #{attachmentType,jdbcType=VARCHAR},
+      attachment_url = #{attachmentUrl,jdbcType=VARCHAR},
+      consultation_id = #{consultationId,jdbcType=VARCHAR}
+    where consultation_attachment_id = #{consultationAttachmentId,jdbcType=BIGINT}
+  </update>
+</mapper>

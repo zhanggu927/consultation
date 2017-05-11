@@ -1,0 +1,21 @@
+1494470962648	Extract local variable 'selectByUserIdAndPassWord'
+1494470990755	Extract local variable 'orgCodes'
+1494473519454	Delete element
+1494473538597	Delete element
+1494473624115	Delete elements
+1494473639068	Delete element
+1494473645227	Delete elements
+1494473651570	Delete elements
+1494473666927	Delete elements
+1494473731865	Delete element
+1494473739934	Delete element
+1494474361064	Delete elements
+1494475386862	Extract local variable 'orgCodes'
+1494475700682	Delete element
+1494475959675	Delete element
+1494476030493	Delete element
+1494476087057	Delete element
+1494476430209	Extract local variable 'orgCodes'
+1494477096608	Extract local variable 'centerConfig'
+1494483406416	Extract local variable 'centerConfigs'
+1494484692422	Extract local variable 'con'

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.annet.mapper.ExpertLabelRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.annet.model.ExpertLabelRelation" >
+    <id column="expert_relation_label_id" property="expertRelationLabelId" jdbcType="BIGINT" />
+    <result column="expert_id" property="expertId" jdbcType="VARCHAR" />
+    <result column="expert_label_id" property="expertLabelId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    expert_relation_label_id, expert_id, expert_label_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_expert_label_relation
+    where expert_relation_label_id = #{expertRelationLabelId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_expert_label_relation
+    where expert_relation_label_id = #{expertRelationLabelId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.annet.model.ExpertLabelRelation" >
+    insert into tbl_expert_label_relation (expert_relation_label_id, expert_id, expert_label_id
+      )
+    values (#{expertRelationLabelId,jdbcType=BIGINT}, #{expertId,jdbcType=VARCHAR}, #{expertLabelId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.annet.model.ExpertLabelRelation" >
+    insert into tbl_expert_label_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="expertRelationLabelId != null" >
+        expert_relation_label_id,
+      </if>
+      <if test="expertId != null" >
+        expert_id,
+      </if>
+      <if test="expertLabelId != null" >
+        expert_label_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="expertRelationLabelId != null" >
+        #{expertRelationLabelId,jdbcType=BIGINT},
+      </if>
+      <if test="expertId != null" >
+        #{expertId,jdbcType=VARCHAR},
+      </if>
+      <if test="expertLabelId != null" >
+        #{expertLabelId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.annet.model.ExpertLabelRelation" >
+    update tbl_expert_label_relation
+    <set >
+      <if test="expertId != null" >
+        expert_id = #{expertId,jdbcType=VARCHAR},
+      </if>
+      <if test="expertLabelId != null" >
+        expert_label_id = #{expertLabelId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where expert_relation_label_id = #{expertRelationLabelId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.annet.model.ExpertLabelRelation" >
+    update tbl_expert_label_relation
+    set expert_id = #{expertId,jdbcType=VARCHAR},
+      expert_label_id = #{expertLabelId,jdbcType=VARCHAR}
+    where expert_relation_label_id = #{expertRelationLabelId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,30 @@
+package com.annet.core.mapper;
+
+import com.annet.core.model.ConsultationAttachment;
+import com.annet.core.model.ConsultationAttachmentExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface ConsultationAttachmentMapper {
+    int countByExample(ConsultationAttachmentExample example);
+
+    int deleteByExample(ConsultationAttachmentExample example);
+
+    int deleteByPrimaryKey(Long consultationAttachmentId);
+
+    int insert(ConsultationAttachment record);
+
+    int insertSelective(ConsultationAttachment record);
+
+    List<ConsultationAttachment> selectByExample(ConsultationAttachmentExample example);
+
+    ConsultationAttachment selectByPrimaryKey(Long consultationAttachmentId);
+
+    int updateByExampleSelective(@Param("record") ConsultationAttachment record, @Param("example") ConsultationAttachmentExample example);
+
+    int updateByExample(@Param("record") ConsultationAttachment record, @Param("example") ConsultationAttachmentExample example);
+
+    int updateByPrimaryKeySelective(ConsultationAttachment record);
+
+    int updateByPrimaryKey(ConsultationAttachment record);
+}

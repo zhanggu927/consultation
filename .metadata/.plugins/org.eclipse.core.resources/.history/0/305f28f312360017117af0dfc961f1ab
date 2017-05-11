@@ -1,0 +1,42 @@
+package com.annet.controller;
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.annet.service.ConsultationService;
+
+/**
+ * 会诊相关的Controller
+ * @author Zhang
+ *
+ */
+@Controller
+@RequestMapping("/consultation")
+public class ConsultationController {
+	
+	@Autowired
+	private ConsultationService consultationService;
+	
+	/**
+     * 发出的会诊列表
+     * @param orgCode   会诊中心对应的orgCode
+     * @param page      当前页
+     * @param size      每页显示数量
+     * @param model
+     * @return
+     */
+    @RequestMapping("/sendList")
+    public String list(String orgCode,Model model,
+                       @RequestParam(value = "page",required = false,defaultValue = "1")int page,
+                       @RequestParam(value = "size",required = false,defaultValue = "10")int size){
+        Map<String, Object> map = consultationService.sendList(orgCode, page, size);
+        model.addAttribute("result",map);
+        return "Consultation_Center";
+    }
+	
+}

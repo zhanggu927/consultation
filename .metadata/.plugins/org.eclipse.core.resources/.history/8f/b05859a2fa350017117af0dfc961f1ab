@@ -1,0 +1,30 @@
+package com.annet.core.mapper;
+
+import com.annet.core.model.ExpertLabelRelation;
+import com.annet.core.model.ExpertLabelRelationExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface ExpertLabelRelationMapper {
+    int countByExample(ExpertLabelRelationExample example);
+
+    int deleteByExample(ExpertLabelRelationExample example);
+
+    int deleteByPrimaryKey(Long expertRelationLabelId);
+
+    int insert(ExpertLabelRelation record);
+
+    int insertSelective(ExpertLabelRelation record);
+
+    List<ExpertLabelRelation> selectByExample(ExpertLabelRelationExample example);
+
+    ExpertLabelRelation selectByPrimaryKey(Long expertRelationLabelId);
+
+    int updateByExampleSelective(@Param("record") ExpertLabelRelation record, @Param("example") ExpertLabelRelationExample example);
+
+    int updateByExample(@Param("record") ExpertLabelRelation record, @Param("example") ExpertLabelRelationExample example);
+
+    int updateByPrimaryKeySelective(ExpertLabelRelation record);
+
+    int updateByPrimaryKey(ExpertLabelRelation record);
+}

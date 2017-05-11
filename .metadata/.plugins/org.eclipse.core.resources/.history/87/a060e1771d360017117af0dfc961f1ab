@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.annet.mapper.ReferralMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.annet.model.ReferralMember" >
+    <id column="referral_member_id" property="referralMemberId" jdbcType="BIGINT" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="department_no" property="departmentNo" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="opinion_time" property="opinionTime" jdbcType="TIMESTAMP" />
+    <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="referral_id" property="referralId" jdbcType="VARCHAR" />
+    <result column="referral_opinion" property="referralOpinion" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    referral_member_id, department_name, department_no, gender, name, opinion_time, org_code, 
+    org_name, phone, referral_id, referral_opinion, role, user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_referral_member
+    where referral_member_id = #{referralMemberId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_referral_member
+    where referral_member_id = #{referralMemberId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.annet.model.ReferralMember" >
+    insert into tbl_referral_member (referral_member_id, department_name, 
+      department_no, gender, name, 
+      opinion_time, org_code, org_name, 
+      phone, referral_id, referral_opinion, 
+      role, user_id)
+    values (#{referralMemberId,jdbcType=BIGINT}, #{departmentName,jdbcType=VARCHAR}, 
+      #{departmentNo,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{opinionTime,jdbcType=TIMESTAMP}, #{orgCode,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{referralId,jdbcType=VARCHAR}, #{referralOpinion,jdbcType=VARCHAR}, 
+      #{role,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.annet.model.ReferralMember" >
+    insert into tbl_referral_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="referralMemberId != null" >
+        referral_member_id,
+      </if>
+      <if test="departmentName != null" >
+        department_name,
+      </if>
+      <if test="departmentNo != null" >
+        department_no,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="opinionTime != null" >
+        opinion_time,
+      </if>
+      <if test="orgCode != null" >
+        org_code,
+      </if>
+      <if test="orgName != null" >
+        org_name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="referralId != null" >
+        referral_id,
+      </if>
+      <if test="referralOpinion != null" >
+        referral_opinion,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="referralMemberId != null" >
+        #{referralMemberId,jdbcType=BIGINT},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentNo != null" >
+        #{departmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="opinionTime != null" >
+        #{opinionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="referralId != null" >
+        #{referralId,jdbcType=VARCHAR},
+      </if>
+      <if test="referralOpinion != null" >
+        #{referralOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.annet.model.ReferralMember" >
+    update tbl_referral_member
+    <set >
+      <if test="departmentName != null" >
+        department_name = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentNo != null" >
+        department_no = #{departmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="opinionTime != null" >
+        opinion_time = #{opinionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orgCode != null" >
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="referralId != null" >
+        referral_id = #{referralId,jdbcType=VARCHAR},
+      </if>
+      <if test="referralOpinion != null" >
+        referral_opinion = #{referralOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where referral_member_id = #{referralMemberId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.annet.model.ReferralMember" >
+    update tbl_referral_member
+    set department_name = #{departmentName,jdbcType=VARCHAR},
+      department_no = #{departmentNo,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      opinion_time = #{opinionTime,jdbcType=TIMESTAMP},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      org_name = #{orgName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      referral_id = #{referralId,jdbcType=VARCHAR},
+      referral_opinion = #{referralOpinion,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR}
+    where referral_member_id = #{referralMemberId,jdbcType=BIGINT}
+  </update>
+  <!--  查看指定转诊 -->
+  <select id="selectByReferralId">
+  	select <include refid="Base_Column_List"></include>
+  		from tbl_referral_member 
+	where referral_id = #{referralId}
+  </select>
+</mapper>

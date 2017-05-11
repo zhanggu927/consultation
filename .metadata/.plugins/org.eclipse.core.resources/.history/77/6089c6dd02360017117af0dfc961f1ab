@@ -1,0 +1,25 @@
+package com.annet.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.annet.mapper.ConsultationCenterManagerMapper;
+import com.annet.util.Message;
+
+@Service
+@Transactional
+public class LoginService {
+	@Autowired
+	private ConsultationCenterManagerMapper managerMapper;
+	
+	public Message<Object> login(String userId, String password){
+		List<String> orgCodes = managerMapper.selectByUserIdAndPassword(userId, password);
+		return new Message<Object>(HttpStatus.OK, "success", orgCodes);
+	}
+	
+	
+}
